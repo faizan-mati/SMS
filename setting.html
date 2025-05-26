@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenwood Academy - Settings</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href=".//assets/css/setting.css">
+
+</head>
+
+<body>
+    <!-- Toggle Button -->
+    <button class="toggle-btn d-md-none" id="toggleBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="p-4">
+            <h4 class="text-center mb-4">
+                <i class="fas fa-graduation-cap me-2"></i>
+                Greenwood Academy
+            </h4>
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="./index.html">
+                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./student.html">
+                    <i class="fas fa-user-graduate me-2"></i> Students
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./teacher.html">
+                    <i class="fas fa-chalkboard-teacher me-2"></i> Teachers
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./classes.html">
+                    <i class="fas fa-book me-2"></i> Classes
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./finance.html">
+                    <i class="fas fa-dollar-sign me-2"></i> Finance
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./event.html">
+                    <i class="fas fa-calendar me-2"></i> Events
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./report.html">
+                    <i class="fas fa-chart-bar me-2"></i> Reports
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./setting.html">
+                    <i class="fas fa-cog me-2"></i> Settings
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Top Navigation -->
+        <nav class="top-navbar">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h2 class="mb-0 text-primary">System Settings</h2>
+                        <small class="text-muted">Manage system preferences and configurations</small>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <div class="d-flex align-items-center justify-content-end">
+                            <button class="btn btn-outline-primary me-2" onclick="resetToDefaults()">
+                                <i class="fas fa-undo me-1"></i>Reset to Defaults
+                            </button>
+                            <button class="btn btn-success" onclick="saveAllSettings()">
+                                <i class="fas fa-save me-1"></i>Save All Changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Settings Content -->
+        <div class="container-fluid p-4">
+            <!-- System Overview -->
+            <div class="stats-grid">
+                <div class="stat-box primary">
+                    <i class="fas fa-server fa-2x mb-2" style="color: var(--primary-color);"></i>
+                    <h3 class="mb-1">99.8%</h3>
+                    <p class="text-muted mb-0">System Uptime</p>
+                    <small class="text-success"><i class="fas fa-check-circle"></i> Operational</small>
+                </div>
+                <div class="stat-box success">
+                    <i class="fas fa-database fa-2x mb-2" style="color: var(--success-color);"></i>
+                    <h3 class="mb-1">2.4 GB</h3>
+                    <p class="text-muted mb-0">Database Size</p>
+                    <small class="text-success"><i class="fas fa-arrow-up"></i> +12% this month</small>
+                </div>
+                <div class="stat-box warning">
+                    <i class="fas fa-shield-alt fa-2x mb-2" style="color: var(--warning-color);"></i>
+                    <h3 class="mb-1">14</h3>
+                    <p class="text-muted mb-0">Security Alerts</p>
+                    <small class="text-warning"><i class="fas fa-exclamation-triangle"></i> Review needed</small>
+                </div>
+                <div class="stat-box danger">
+                    <i class="fas fa-clock fa-2x mb-2" style="color: var(--danger-color);"></i>
+                    <h3 class="mb-1">3 days</h3>
+                    <p class="text-muted mb-0">Last Backup</p>
+                    <small class="text-danger"><i class="fas fa-calendar"></i> Schedule backup</small>
+                </div>
+            </div>
+
+            <!-- Profile Settings -->
+            <div class="settings-section">
+                <h5 class="section-header">
+                    <i class="fas fa-user-cog me-2"></i>Profile Settings
+                </h5>
+                <div class="section-content">
+                    <div class="profile-section">
+                        <img src="https://via.placeholder.com/80x80/3498db/ffffff?text=AD" alt="Admin Profile"
+                            class="profile-avatar">
+                        <div>
+                            <h6 class="mb-1">Administrator</h6>
+                            <p class="text-muted mb-2">admin@greenwoodacademy.edu</p>
+                            <button class="btn btn-sm btn-outline-primary me-2" onclick="changeProfilePicture()">
+                                <i class="fas fa-camera me-1"></i>Change Photo
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                                data-bs-target="#editProfileModal">
+                                <i class="fas fa-edit me-1"></i>Edit Profile
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Two-Factor Authentication</h6>
+                            <small>Add an extra layer of security to your account</small>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="twoFactorAuth" checked>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Session Timeout</h6>
+                            <small>Automatically log out after inactivity</small>
+                        </div>
+                        <select class="form-select" style="width: auto;">
+                            <option value="30">30 minutes</option>
+                            <option value="60" selected>1 hour</option>
+                            <option value="120">2 hours</option>
+                            <option value="240">4 hours</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appearance Settings -->
+            <div class="settings-section">
+                <h5 class="section-header">
+                    <i class="fas fa-palette me-2"></i>Appearance & Theme
+                </h5>
+                <div class="section-content">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Dark Mode</h6>
+                            <small>Switch to dark theme for better night viewing</small>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="darkMode">
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Color Theme</h6>
+                            <small>Choose your preferred color scheme</small>
+                        </div>
+                    </div>
+
+                    <div class="theme-selector">
+                        <div class="theme-option active" data-theme="default">
+                            <div class="color-preview" style="background: linear-gradient(45deg, #2c3e50, #3498db);">
+                            </div>
+                            <small>Default</small>
+                        </div>
+                        <div class="theme-option" data-theme="green">
+                            <div class="color-preview" style="background: linear-gradient(45deg, #27ae60, #2ecc71);">
+                            </div>
+                            <small>Green</small>
+                        </div>
+                        <div class="theme-option" data-theme="purple">
+                            <div class="color-preview" style="background: linear-gradient(45deg, #8e44ad, #9b59b6);">
+                            </div>
+                            <small>Purple</small>
+                        </div>
+                        <div class="theme-option" data-theme="orange">
+                            <div class="color-preview" style="background: linear-gradient(45deg, #e67e22, #f39c12);">
+                            </div>
+                            <small>Orange</small>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Sidebar Position</h6>
+                            <small>Choose sidebar position</small>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <input type="radio" class="btn-check" name="sidebarPosition" id="sidebarLeft" checked>
+                            <label class="btn btn-outline-primary" for="sidebarLeft">Left</label>
+                            <input type="radio" class="btn-check" name="sidebarPosition" id="sidebarRight">
+                            <label class="btn btn-outline-primary" for="sidebarRight">Right</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notification Settings -->
+            <div class="settings-section">
+                <h5 class="section-header">
+                    <i class="fas fa-bell me-2"></i>Notification Preferences
+                </h5>
+                <div class="section-content">
+                    <div class="notification-preferences">
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h6>Email Notifications</h6>
+                                <small>Receive notifications via email</small>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h6>SMS Notifications</h6>
+                                <small>Receive notifications via SMS</small>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="smsNotifications">
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h6>Desktop Notifications</h6>
+                                <small>Show browser notifications</small>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="desktopNotifications" checked>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h6>Student Updates</h6>
+                                <small>Notifications about student changes</small>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="studentUpdates" checked>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h6>Payment Alerts</h6>
+                                <small>Notifications about fee payments</small>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="paymentAlerts" checked>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h6>System Maintenance</h6>
+                                <small>Alerts about system updates</small>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="maintenanceAlerts" checked>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Configuration -->
+            <div class="settings-section">
+                <h5 class="section-header">
+                    <i class="fas fa-cogs me-2"></i>System Configuration
+                </h5>
+                <div class="section-content">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Academic Year</h6>
+                            <small>Current academic year settings</small>
+                        </div>
+                        <select class="form-select" style="width: auto;">
+                            <option value="2024-2025" selected>2024-2025</option>
+                            <option value="2025-2026">2025-2026</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Default Language</h6>
+                            <small>System default language</small>
+                        </div>
+                        <select class="form-select" style="width: auto;">
+                            <option value="en" selected>English</option>
+                            <option value="es">Spanish</option>
+                            <option value="fr">French</option>
+                            <option value="de">German</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Date Format</h6>
+                            <small>Choose date display format</small>
+                        </div>
+                        <select class="form-select" style="width: auto;">
+                            <option value="MM/DD/YYYY" selected>MM/DD/YYYY</option>
+                            <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                            <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Time Zone</h6>
+                            <small>System time zone</small>
+                        </div>
+                        <select class="form-select" style="width: auto;">
+                            <option value="UTC-5" selected>Eastern Time (UTC-5)</option>
+                            <option value="UTC-6">Central Time (UTC-6)</option>
+                            <option value="UTC-7">Mountain Time (UTC-7)</option>
+                            <option value="UTC-8">Pacific Time (UTC-8)</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Auto-Save</h6>
+                            <small>Automatically save changes</small>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="autoSave" checked>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backup & Security -->
+            <div class="settings-section">
+                <h5 class="section-header">
+                    <i class="fas fa-shield-alt me-2"></i>Backup & Security
+                </h5>
+                <div class="section-content">
+                    <div class="backup-status">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <h6 class="mb-1">Last Backup: 3 days ago</h6>
+                                <small class="text-muted">Next scheduled backup in 4 days</small>
+                            </div>
+                            <button class="btn btn-primary" onclick="createBackup()">
+                                <i class="fas fa-save me-1"></i>Backup Now
+                            </button>
+                        </div>
+                        <div class="progress-indicator">
+                            <div class="progress-bar-animated" style="width: 0%" id="backupProgress"></div>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Automatic Backups</h6>
+                            <small>Schedule regular system backups</small>
+                        </div>
+                        <select class="form-select" style="width: auto;">
+                            <option value="daily">Daily</option>
+                            <option value="weekly" selected>Weekly</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Login Attempts</h6>
+                            <small>Maximum failed login attempts before lockout</small>
+                        </div>
+                        <select class="form-select" style="width: auto;">
+                            <option value="3">3 attempts</option>
+                            <option value="5" selected>5 attempts</option>
+                            <option value="10">10 attempts</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Password Policy</h6>
+                            <small>Enforce strong password requirements</small>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="strongPasswords" checked>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Security Logs</h6>
+                            <small>Recent security events and activities</small>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm" onclick="viewSecurityLogs()">
+                            <i class="fas fa-eye me-1"></i>View Logs
+                        </button>
+                    </div>
+
+                    <div class="security-log" id="securityLog" style="display: none;">
+                        <div class="log-entry">
+                            <div class="log-icon log-success">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div>
+                                <strong>Successful Login</strong><br>
+                                <small class="text-muted">Admin user logged in from 192.168.1.100 - 2 hours ago</small>
+                            </div>
+                        </div>
+                        <div class="log-entry">
+                            <div class="log-icon log-warning">
+                                <i class="fas fa-exclamation"></i>
+                            </div>
+                            <div>
+                                <strong>Failed Login Attempt</strong><br>
+                                <small class="text-muted">Unknown user attempted login from 192.168.1.205 - 4 hours
+                                    ago</small>
+                            </div>
+                        </div>
+                        <div class="log-entry">
+                            <div class="log-icon log-success">
+                                <i class="fas fa-shield"></i>
+                            </div>
+                            <div>
+                                <strong>Security Update</strong><br>
+                                <small class="text-muted">System security patches applied - 1 day ago</small>
+                            </div>
+                        </div>
+                        <div class="log-entry">
+                            <div class="log-icon log-danger">
+                                <i class="fas fa-times"></i>
+                            </div>
+                            <div>
+                                <strong>Suspicious Activity</strong><br>
+                                <small class="text-muted">Multiple failed login attempts detected - 2 days ago</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Management -->
+            <div class="settings-section">
+                <h5 class="section-header">
+                    <i class="fas fa-database me-2"></i>Data Management
+                </h5>
+                <div class="section-content">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Data Retention</h6>
+                            <small>How long to keep student records after graduation</small>
+                        </div>
+                        <select class="form-select" style="width: auto;">
+                            <option value="3">3 years</option>
+                            <option value="5" selected>5 years</option>
+                            <option value="10">10 years</option>
+                            <option value="permanent">Permanent</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Export Format</h6>
+                            <small>Default format for data exports</small>
+                        </div>
+                        <select class="form-select" style="width: auto;">
+                            <option value="csv">CSV</option>
+                            <option value="excel" selected>Excel</option>
+                            <option value="pdf">PDF</option>
+                            <option value="json">JSON</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Database Cleanup</h6>
+                            <small>Remove temporary files and optimize database</small>
+                        </div>
+                        <button class="btn btn-outline-warning btn-sm" onclick="cleanupDatabase()">
+                            <i class="fas fa-broom me-1"></i>Clean Now
+                        </button>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Import/Export</h6>
+                            <small>Manage data import and export operations</small>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#importDataModal">
+                                <i class="fas fa-upload me-1"></i>Import
+                            </button>
+                            <button class="btn btn-outline-success btn-sm" onclick="exportAllData()">
+                                <i class="fas fa-download me-1"></i>Export
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email Configuration -->
+            <div class="settings-section">
+                <h5 class="section-header">
+                    <i class="fas fa-envelope me-2"></i>Email Configuration
+                </h5>
+                <div class="section-content">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>SMTP Server</h6>
+                            <small>Email server configuration</small>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#emailConfigModal">
+                            <i class="fas fa-cog me-1"></i>Configure
+                        </button>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Email Templates</h6>
+                            <small>Customize email templates for notifications</small>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm" onclick="manageEmailTemplates()">
+                            <i class="fas fa-edit me-1"></i>Manage Templates
+                        </button>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Email Signature</h6>
+                            <small>Default signature for system emails</small>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#signatureModal">
+                            <i class="fas fa-signature me-1"></i>Edit Signature
+                        </button>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Test Email</h6>
+                            <small>Send a test email to verify configuration</small>
+                        </div>
+                        <button class="btn btn-outline-info btn-sm" onclick="sendTestEmail()">
+                            <i class="fas fa-paper-plane me-1"></i>Send Test
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Settings -->
+            <div class="settings-section">
+                <h5 class="section-header">
+                    <i class="fas fa-tools me-2"></i>Advanced Settings
+                </h5>
+                <div class="section-content">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Debug Mode</h6>
+                            <small>Enable detailed error logging (for developers)</small>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="debugMode">
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>API Access</h6>
+                            <small>Enable external API access</small>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="apiAccess" checked>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>Cache Settings</h6>
+                            <small>Manage system cache and performance</small>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-outline-warning btn-sm" onclick="clearCache()">
+                                <i class="fas fa-trash me-1"></i>Clear Cache
+                            </button>
+                            <button class="btn btn-outline-info btn-sm" onclick="cacheSettings()">
+                                <i class="fas fa-cog me-1"></i>Configure
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h6>System Logs</h6>
+                            <small>View and download system logs</small>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm" onclick="downloadLogs()">
+                            <i class="fas fa-download me-1"></i>Download Logs
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-user-edit me-2"></i>Edit Profile
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProfileForm">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="profileName" value="Administrator" required>
+                            <label for="profileName">Full Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="profileEmail"
+                                value="admin@greenwoodacademy.edu" required>
+                            <label for="profileEmail">Email Address</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="tel" class="form-control" id="profilePhone" value="+1 (555) 123-4567">
+                            <label for="profilePhone">Phone Number</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" id="profileBio" style="height: 100px"
+                                placeholder="Brief description about yourself"></textarea>
+                            <label for="profileBio">Bio</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="saveProfile()">
+                        <i class="fas fa-save me-1"></i>Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Email Configuration Modal -->
+    <div class="modal fade" id="emailConfigModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-envelope-open me-2"></i>Email Configuration
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="emailConfigForm">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="smtpHost" value="smtp.gmail.com" required>
+                            <label for="smtpHost">SMTP Host</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="number" class="form-control" id="smtpPort" value="587" required>
+                                    <label for="smtpPort">SMTP Port</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="smtpSecurity" required>
+                                        <option value="tls" selected>TLS</option>
+                                        <option value="ssl">SSL</option>
+                                        <option value="none">None</option>
+                                    </select>
+                                    <label for="smtpSecurity">Security</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="smtpUsername" required>
+                            <label for="smtpUsername">Username/Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="smtpPassword" required>
+                            <label for="smtpPassword">Password</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="fromEmail" required>
+                            <label for="fromEmail">From Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="fromName" value="Greenwood Academy" required>
+                            <label for="fromName">From Name</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-info me-2" onclick="testEmailConfig()">
+                        <i class="fas fa-vial me-1"></i>Test Connection
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="saveEmailConfig()">
+                        <i class="fas fa-save me-1"></i>Save Configuration
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Data Modal -->
+    <div class="modal fade" id="importDataModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-upload me-2"></i>Import Data
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="importType" class="form-label">Data Type</label>
+                        <select class="form-select" id="importType">
+                            <option value="students">Students</option>
+                            <option value="teachers">Teachers</option>
+                            <option value="classes">Classes</option>
+                            <option value="grades">Grades</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="importFile" class="form-label">Select File</label>
+                        <input type="file" class="form-control" id="importFile" accept=".csv,.xlsx,.xls">
+                        <div class="form-text">Supported formats: CSV, Excel (.xlsx, .xls)</div>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="skipDuplicates" checked>
+                        <label class="form-check-label" for="skipDuplicates">
+                            Skip duplicate records
+                        </label>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="validateData" checked>
+                        <label class="form-check-label" for="validateData">
+                            Validate data before import
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="startImport()">
+                        <i class="fas fa-upload me-1"></i>Start Import
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Email Signature Modal -->
+    <div class="modal fade" id="signatureModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-signature me-2"></i>Email Signature
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" id="emailSignature" style="height: 150px"
+                            placeholder="Enter your email signature">Best regards,
+Greenwood Academy Administration
+Phone: +1 (555) 123-4567
+Email: admin@greenwoodacademy.edu
+Website: www.greenwoodacademy.edu</textarea>
+                        <label for="emailSignature">Signature</label>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="includeSignature" checked>
+                        <label class="form-check-label" for="includeSignature">
+                            Include signature in all outgoing emails
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="saveSignature()">
+                        <i class="fas fa-save me-1"></i>Save Signature
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions FAB -->
+    <div class="quick-actions">
+        <button class="fab" onclick="saveAllSettings()" title="Save All Settings">
+            <i class="fas fa-save"></i>
+        </button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Settings data storage (in memory)
+        let settingsData = {
+            profile: {
+                name: 'Administrator',
+                email: 'admin@greenwoodacademy.edu',
+                phone: '+1 (555) 123-4567',
+                bio: ''
+            },
+            security: {
+                twoFactorAuth: true,
+                sessionTimeout: 60,
+                strongPasswords: true,
+                maxLoginAttempts: 5
+            },
+            appearance: {
+                darkMode: false,
+                theme: 'default',
+                sidebarPosition: 'left'
+            },
+            notifications: {
+                email: true,
+                sms: false,
+                desktop: true,
+                studentUpdates: true,
+                paymentAlerts: true,
+                maintenanceAlerts: true
+            },
+            system: {
+                academicYear: '2024-2025',
+                language: 'en',
+                dateFormat: 'MM/DD/YYYY',
+                timeZone: 'UTC-5',
+                autoSave: true
+            },
+            backup: {
+                schedule: 'weekly',
+                lastBackup: '3 days ago'
+            },
+            data: {
+                retention: 5,
+                exportFormat: 'excel'
+            },
+            email: {
+                smtpHost: 'smtp.gmail.com',
+                smtpPort: 587,
+                smtpSecurity: 'tls',
+                fromName: 'Greenwood Academy'
+            },
+            advanced: {
+                debugMode: false,
+                apiAccess: true
+            }
+        };
+
+        // Initialize settings on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            initializeSidebar();
+            loadSettings();
+            setupEventListeners();
+        });
+
+        // Sidebar functionality
+        function initializeSidebar() {
+            const toggleBtn = document.getElementById('toggleBtn');
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function () {
+                    sidebar.classList.toggle('active');
+                    mainContent.classList.toggle('shifted');
+                    toggleBtn.classList.toggle('shifted');
+                });
+            }
+
+            // Auto-show sidebar on desktop
+            if (window.innerWidth >= 768) {
+                sidebar.classList.add('active');
+                mainContent.classList.add('shifted');
+            }
+        }
+
+        // Load settings from memory
+        function loadSettings() {
+            // Profile settings
+            document.getElementById('profileName').value = settingsData.profile.name;
+            document.getElementById('profileEmail').value = settingsData.profile.email;
+            document.getElementById('profilePhone').value = settingsData.profile.phone;
+
+            // Security settings
+            document.getElementById('twoFactorAuth').checked = settingsData.security.twoFactorAuth;
+            document.getElementById('strongPasswords').checked = settingsData.security.strongPasswords;
+
+            // Appearance settings
+            document.getElementById('darkMode').checked = settingsData.appearance.darkMode;
+            updateThemeSelection(settingsData.appearance.theme);
+
+            // Notification settings
+            document.getElementById('emailNotifications').checked = settingsData.notifications.email;
+            document.getElementById('smsNotifications').checked = settingsData.notifications.sms;
+            document.getElementById('desktopNotifications').checked = settingsData.notifications.desktop;
+            document.getElementById('studentUpdates').checked = settingsData.notifications.studentUpdates;
+            document.getElementById('paymentAlerts').checked = settingsData.notifications.paymentAlerts;
+            document.getElementById('maintenanceAlerts').checked = settingsData.notifications.maintenanceAlerts;
+
+            // System settings
+            document.getElementById('autoSave').checked = settingsData.system.autoSave;
+
+            // Advanced settings
+            document.getElementById('debugMode').checked = settingsData.advanced.debugMode;
+            document.getElementById('apiAccess').checked = settingsData.advanced.apiAccess;
+
+            // Email configuration
+            document.getElementById('smtpHost').value = settingsData.email.smtpHost;
+            document.getElementById('smtpPort').value = settingsData.email.smtpPort;
+            document.getElementById('smtpSecurity').value = settingsData.email.smtpSecurity;
+            document.getElementById('fromName').value = settingsData.email.fromName;
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Theme selection
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.addEventListener('click', function () {
+                    const theme = this.getAttribute('data-theme');
+                    updateThemeSelection(theme);
+                    settingsData.appearance.theme = theme;
+                    if (settingsData.system.autoSave) saveAllSettings();
+                });
+            });
+
+            // Auto-save for switches
+            document.querySelectorAll('.form-check-input').forEach(input => {
+                input.addEventListener('change', function () {
+                    if (settingsData.system.autoSave) {
+                        setTimeout(() => saveAllSettings(), 500);
+                    }
+                });
+            });
+        }
+
+        // Update theme selection
+        function updateThemeSelection(theme) {
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.classList.remove('active');
+                if (option.getAttribute('data-theme') === theme) {
+                    option.classList.add('active');
+                }
+            });
+        }
+
+        // Save all settings
+        function saveAllSettings() {
+            // Update settings data from form inputs
+            updateSettingsFromForm();
+
+            // Show success notification
+            showNotification('Settings saved successfully!', 'success');
+
+            console.log('Settings saved:', settingsData);
+        }
+
+        // Update settings data from form
+        function updateSettingsFromForm() {
+            // Profile
+            settingsData.profile.name = document.getElementById('profileName').value;
+            settingsData.profile.email = document.getElementById('profileEmail').value;
+            settingsData.profile.phone = document.getElementById('profilePhone').value;
+
+            // Security
+            settingsData.security.twoFactorAuth = document.getElementById('twoFactorAuth').checked;
+            settingsData.security.strongPasswords = document.getElementById('strongPasswords').checked;
+
+            // Appearance
+            settingsData.appearance.darkMode = document.getElementById('darkMode').checked;
+
+            // Notifications
+            settingsData.notifications.email = document.getElementById('emailNotifications').checked;
+            settingsData.notifications.sms = document.getElementById('smsNotifications').checked;
+            settingsData.notifications.desktop = document.getElementById('desktopNotifications').checked;
+            settingsData.notifications.studentUpdates = document.getElementById('studentUpdates').checked;
+            settingsData.notifications.paymentAlerts = document.getElementById('paymentAlerts').checked;
+            settingsData.notifications.maintenanceAlerts = document.getElementById('maintenanceAlerts').checked;
+
+            // System
+            settingsData.system.autoSave = document.getElementById('autoSave').checked;
+
+            // Advanced
+            settingsData.advanced.debugMode = document.getElementById('debugMode').checked;
+            settingsData.advanced.apiAccess = document.getElementById('apiAccess').checked;
+        }
+
+        // Reset to defaults
+        function resetToDefaults() {
+            if (confirm('Are you sure you want to reset all settings to default values? This action cannot be undone.')) {
+                // Reset to default values
+                settingsData = {
+                    profile: {
+                        name: 'Administrator',
+                        email: 'admin@greenwoodacademy.edu',
+                        phone: '+1 (555) 123-4567',
+                        bio: ''
+                    },
+                    security: {
+                        twoFactorAuth: false,
+                        sessionTimeout: 60,
+                        strongPasswords: true,
+                        maxLoginAttempts: 5
+                    },
+                    appearance: {
+                        darkMode: false,
+                        theme: 'default',
+                        sidebarPosition: 'left'
+                    },
+                    notifications: {
+                        email: true,
+                        sms: false,
+                        desktop: true,
+                        studentUpdates: true,
+                        paymentAlerts: true,
+                        maintenanceAlerts: true
+                    },
+                    system: {
+                        academicYear: '2024-2025',
+                        language: 'en',
+                        dateFormat: 'MM/DD/YYYY',
+                        timeZone: 'UTC-5',
+                        autoSave: true
+                    },
+                    backup: {
+                        schedule: 'weekly',
+                        lastBackup: '3 days ago'
+                    },
+                    data: {
+                        retention: 5,
+                        exportFormat: 'excel'
+                    },
+                    email: {
+                        smtpHost: 'smtp.gmail.com',
+                        smtpPort: 587,
+                        smtpSecurity: 'tls',
+                        fromName: 'Greenwood Academy'
+                    },
+                    advanced: {
+                        debugMode: false,
+                        apiAccess: true
+                    }
+                };
+
+                loadSettings();
+                showNotification('Settings reset to defaults', 'info');
+            }
+        }
+
+        // Profile functions
+        function changeProfilePicture() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        document.querySelector('.profile-avatar').src = e.target.result;
+                        showNotification('Profile picture updated', 'success');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            input.click();
+        }
+
+        function saveProfile() {
+            updateSettingsFromForm();
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editProfileModal'));
+            modal.hide();
+            showNotification('Profile updated successfully', 'success');
+        }
+
+        // Backup functions
+        function createBackup() {
+            const progressBar = document.getElementById('backupProgress');
+            let progress = 0;
+
+            const interval = setInterval(() => {
+                progress += Math.random() * 10;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    showNotification('Backup completed successfully', 'success');
+                    settingsData.backup.lastBackup = 'Just now';
+                }
+                progressBar.style.width = progress + '%';
+            }, 200);
+        }
+
+        // Security functions
+        function viewSecurityLogs() {
+            const logContainer = document.getElementById('securityLog');
+            logContainer.style.display = logContainer.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Data management functions
+        function cleanupDatabase() {
+            if (confirm('This will remove temporary files and optimize the database. Continue?')) {
+                showNotification('Database cleanup completed', 'success');
+            }
+        }
+
+    </script>

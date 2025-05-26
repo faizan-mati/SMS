@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenwood Academy - Finance Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/finance.css">
+
+</head>
+
+<body>
+    <!-- Toggle Button -->
+    <button class="toggle-btn d-md-none" id="toggleBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+   <nav class="sidebar" id="sidebar">
+        <div class="p-4">
+            <h4 class="text-center mb-4">
+                <i class="fas fa-graduation-cap me-2"></i>
+                Greenwood Academy
+            </h4>
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="./index.html">
+                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./student.html">
+                    <i class="fas fa-user-graduate me-2"></i> Students
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./teacher.html">
+                    <i class="fas fa-chalkboard-teacher me-2"></i> Teachers
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./classes.html">
+                    <i class="fas fa-book me-2"></i> Classes
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./finance.html">
+                    <i class="fas fa-dollar-sign me-2"></i> Finance
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./event.html">
+                    <i class="fas fa-calendar me-2"></i> Events
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./report.html">
+                    <i class="fas fa-chart-bar me-2"></i> Reports
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./setting.html">
+                    <i class="fas fa-cog me-2"></i> Settings
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Top Navigation -->
+        <nav class="top-navbar">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h2 class="mb-0 text-primary">Finance Management</h2>
+                        <small class="text-muted">Manage fees, payments, and financial records</small>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <div class="d-flex align-items-center justify-content-end">
+                            <button class="btn btn-outline-primary me-2" onclick="refreshFinanceData()">
+                                <i class="fas fa-sync-alt me-1"></i>Refresh
+                            </button>
+                            <button class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#recordPaymentModal">
+                                <i class="fas fa-plus me-1"></i>Record Payment
+                            </button>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#generateInvoiceModal">
+                                <i class="fas fa-file-invoice me-1"></i>Generate Invoice
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <div class="container-fluid p-4">
+            <!-- Financial Overview -->
+            <div class="finance-summary-card">
+                <div class="row text-center">
+                    <div class="col-md-3">
+                        <h3 class="mb-1">$1,245,850</h3>
+                        <p class="mb-0">Total Revenue</p>
+                        <small><i class="fas fa-arrow-up"></i> +12.5% this month</small>
+                    </div>
+                    <div class="col-md-3">
+                        <h3 class="mb-1">$156,240</h3>
+                        <p class="mb-0">Outstanding Fees</p>
+                        <small><i class="fas fa-exclamation-triangle"></i> 127 students</small>
+                    </div>
+                    <div class="col-md-3">
+                        <h3 class="mb-1">$98,450</h3>
+                        <p class="mb-0">This Month</p>
+                        <small><i class="fas fa-calendar"></i> Current collections</small>
+                    </div>
+                    <div class="col-md-3">
+                        <h3 class="mb-1">94.2%</h3>
+                        <p class="mb-0">Collection Rate</p>
+                        <small><i class="fas fa-chart-line"></i> Above target</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Overview -->
+            <div class="stats-grid">
+                <div class="stat-box success">
+                    <i class="fas fa-money-check-alt fa-2x mb-2" style="color: var(--success-color);"></i>
+                    <h3 class="mb-1">1,089</h3>
+                    <p class="text-muted mb-0">Paid Students</p>
+                    <small class="text-success"><i class="fas fa-arrow-up"></i> +3.2%</small>
+                </div>
+                <div class="stat-box warning">
+                    <i class="fas fa-clock fa-2x mb-2" style="color: var(--warning-color);"></i>
+                    <h3 class="mb-1">127</h3>
+                    <p class="text-muted mb-0">Pending Payments</p>
+                    <small class="text-warning"><i class="fas fa-clock"></i> Follow up needed</small>
+                </div>
+                <div class="stat-box danger">
+                    <i class="fas fa-exclamation-triangle fa-2x mb-2" style="color: var(--danger-color);"></i>
+                    <h3 class="mb-1">31</h3>
+                    <p class="text-muted mb-0">Overdue Payments</p>
+                    <small class="text-danger"><i class="fas fa-arrow-up"></i> Action required</small>
+                </div>
+                <div class="stat-box primary">
+                    <i class="fas fa-file-invoice fa-2x mb-2" style="color: var(--primary-color);"></i>
+                    <h3 class="mb-1">245</h3>
+                    <p class="text-muted mb-0">Invoices Generated</p>
+                    <small class="text-info"><i class="fas fa-file"></i> This month</small>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <div class="content-card">
+                <ul class="nav nav-tabs" id="financeTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="payments-tab" data-bs-toggle="tab" data-bs-target="#payments" type="button">
+                            <i class="fas fa-credit-card me-2"></i>Payments
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="fee-structure-tab" data-bs-toggle="tab" data-bs-target="#fee-structure" type="button">
+                            <i class="fas fa-list-alt me-2"></i>Fee Structure
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="transactions-tab" data-bs-toggle="tab" data-bs-target="#transactions" type="button">
+                            <i class="fas fa-exchange-alt me-2"></i>Transactions
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="reports-tab" data-bs-toggle="tab" data-bs-target="#reports" type="button">
+                            <i class="fas fa-chart-pie me-2"></i>Reports
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="financeTabContent">
+                    <!-- Payments Tab -->
+                    <div class="tab-pane fade show active" id="payments" role="tabpanel">
+                        <!-- Search and Filters -->
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="search-container">
+                                    <i class="fas fa-search search-icon"></i>
+                                    <input type="text" class="form-control" id="searchPayment"
+                                        placeholder="Search by student name, ID, or transaction...">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex gap-2">
+                                    <select class="form-select" id="statusFilter">
+                                        <option value="">All Status</option>
+                                        <option value="paid">Paid</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="overdue">Overdue</option>
+                                        <option value="partial">Partial</option>
+                                    </select>
+                                    <select class="form-select" id="gradeFilter">
+                                        <option value="">All Grades</option>
+                                        <option value="1">Grade 1</option>
+                                        <option value="2">Grade 2</option>
+                                        <option value="3">Grade 3</option>
+                                        <option value="4">Grade 4</option>
+                                        <option value="5">Grade 5</option>
+                                        <option value="6">Grade 6</option>
+                                    </select>
+                                    <button class="btn btn-outline-secondary" onclick="clearFilters()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-chips">
+                            <span class="chip active" data-filter="all">All Payments</span>
+                            <span class="chip" data-filter="today">Today</span>
+                            <span class="chip" data-filter="week">This Week</span>
+                            <span class="chip" data-filter="month">This Month</span>
+                            <span class="chip" data-filter="overdue">Overdue</span>
+                        </div>
+
+                        <!-- Payments Table -->
+                        <div class="table-container mt-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-credit-card me-2"></i>Payment Records
+                                    <span class="badge bg-primary ms-2" id="paymentCount">1,247</span>
+                                </h5>
+                                <div class="export-buttons">
+                                    <button class="btn btn-outline-success btn-sm" onclick="exportPayments('excel')">
+                                        <i class="fas fa-file-excel me-1"></i>Excel
+                                    </button>
+                                    <button class="btn btn-outline-info btn-sm" onclick="exportPayments('pdf')">
+                                        <i class="fas fa-file-pdf me-1"></i>PDF
+                                    </button>
+                                </div>
+                            </div>
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Student ID</th>
+                                        <th>Fee Type</th>
+                                        <th>Amount</th>
+                                        <th>Due Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="paymentsTable">
+                                    <!-- Sample Data -->
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://via.placeholder.com/40" alt="Student" class="rounded-circle me-3" width="40" height="40">
+                                                <div>
+                                                    <div class="fw-bold">Emma Thompson</div>
+                                                    <small class="text-muted">Grade 5</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><strong>STU001</strong></td>
+                                        <td>Tuition Fee</td>
+                                        <td><span class="amount-display amount-positive">$1,200</span></td>
+                                        <td>2025-05-30</td>
+                                        <td><span class="payment-status-badge status-paid">Paid</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary btn-action" onclick="viewPaymentDetails('STU001')">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-success btn-action" onclick="printReceipt('STU001')">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://via.placeholder.com/40" alt="Student" class="rounded-circle me-3" width="40" height="40">
+                                                <div>
+                                                    <div class="fw-bold">James Wilson</div>
+                                                    <small class="text-muted">Grade 3</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><strong>STU002</strong></td>
+                                        <td>Library Fee</td>
+                                        <td><span class="amount-display amount-warning">$150</span></td>
+                                        <td>2025-05-25</td>
+                                        <td><span class="payment-status-badge status-pending">Pending</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary btn-action" onclick="viewPaymentDetails('STU002')">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-warning btn-action" onclick="sendReminder('STU002')">
+                                                <i class="fas fa-bell"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://via.placeholder.com/40" alt="Student" class="rounded-circle me-3" width="40" height="40">
+                                                <div>
+                                                    <div class="fw-bold">Sarah Davis</div>
+                                                    <small class="text-muted">Grade 4</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><strong>STU003</strong></td>
+                                        <td>Transport Fee</td>
+                                        <td><span class="amount-display amount-negative">$300</span></td>
+                                        <td>2025-05-20</td>
+                                        <td><span class="payment-status-badge status-overdue">Overdue</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary btn-action" onclick="viewPaymentDetails('STU003')">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger btn-action" onclick="escalatePayment('STU003')">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Fee Structure Tab -->
+                    <div class="tab-pane fade" id="fee-structure" role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="fee-structure-table">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h5><i class="fas fa-list-alt me-2"></i>Fee Structure 2024-25</h5>
+                                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addFeeModal">
+                                            <i class="fas fa-plus me-1"></i>Add Fee Type
+                                        </button>
+                                    </div>
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Grade</th>
+                                                <th>Tuition Fee</th>
+                                                <th>Library Fee</th>
+                                                <th>Transport Fee</th>
+                                                <th>Lab Fee</th>
+                                                <th>Total</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><strong>Grade 1</strong></td>
+                                                <td>$250</td>
+                                                <td>$50</td>
+                                                <td>$1,400</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary btn-action" onclick="editFeeStructure(1)">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Grade 2</strong></td>
+                                                <td>$1,100</td>
+                                                <td>$100</td>
+                                                <td>$250</td>
+                                                <td>$75</td>
+                                                <td>$1,525</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary btn-action" onclick="editFeeStructure(2)">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Grade 3</strong></td>
+                                                <td>$1,200</td>
+                                                <td>$120</td>
+                                                <td>$280</td>
+                                                <td>$100</td>
+                                                <td>$1,700</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary btn-action" onclick="editFeeStructure(3)">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Grade 4</strong></td>
+                                                <td>$1,300</td>
+                                                <td>$120</td>
+                                                <td>$300</td>
+                                                <td>$125</td>
+                                                <td>$1,845</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary btn-action" onclick="editFeeStructure(4)">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Grade 5</strong></td>
+                                                <td>$1,400</td>
+                                                <td>$150</td>
+                                                <td>$320</td>
+                                                <td>$150</td>
+                                                <td>$2,020</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary btn-action" onclick="editFeeStructure(5)">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Grade 6</strong></td>
+                                                <td>$1,500</td>
+                                                <td>$150</td>
+                                                <td>$350</td>
+                                                <td>$200</td>
+                                                <td>$2,200</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary btn-action" onclick="editFeeStructure(6)">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="content-card">
+                                    <h6><i class="fas fa-info-circle me-2"></i>Fee Information</h6>
+                                    <div class="mt-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Payment Due Date:</span>
+                                            <strong>Every 30th</strong>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Late Fee:</span>
+                                            <strong>$25</strong>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Discount Available:</span>
+                                            <strong>5% (Early Payment)</strong>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Payment Methods:</span>
+                                            <div>
+                                                <i class="fas fa-credit-card text-primary"></i>
+                                                <i class="fas fa-university text-success ms-1"></i>
+                                                <i class="fas fa-money-bill text-warning ms-1"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <button class="btn btn-outline-primary btn-sm w-100" onclick="downloadFeeStructure()">
+                                        <i class="fas fa-download me-1"></i>Download Fee Structure
+                                    </button>
+                                </div>
+
+                                <div class="content-card">
+                                    <h6><i class="fas fa-chart-pie me-2"></i>Fee Distribution</h6>
+                                    <div class="mt-3">
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <span>Tuition (70%)</span>
+                                                <span>$1,225</span>
+                                            </div>
+                                            <div class="progress" style="height: 8px;">
+                                                <div class="progress-bar bg-primary" style="width: 70%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <span>Transport (18%)</span>
+                                                <span>$315</span>
+                                            </div>
+                                            <div class="progress" style="height: 8px;">
+                                                <div class="progress-bar bg-warning" style="width: 18%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <span>Library (8%)</span>
+                                                <span>$140</span>
+                                            </div>
+                                            <div class="progress" style="height: 8px;">
+                                                <div class="progress-bar bg-info" style="width: 8%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <span>Lab (4%)</span>
+                                                <span>$70</span>
+                                            </div>
+                                            <div class="progress" style="height: 8px;">
+                                                <div class="progress-bar bg-success" style="width: 4%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transactions Tab -->
+                    <div class="tab-pane fade" id="transactions" role="tabpanel">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="search-container">
+                                    <i class="fas fa-search search-icon"></i>
+                                    <input type="text" class="form-control" id="searchTransaction"
+                                        placeholder="Search transactions...">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex gap-2">
+                                    <input type="date" class="form-control" id="dateFrom">
+                                    <input type="date" class="form-control" id="dateTo">
+                                    <select class="form-select" id="transactionType">
+                                        <option value="">All Types</option>
+                                        <option value="payment">Payment</option>
+                                        <option value="refund">Refund</option>
+                                        <option value="adjustment">Adjustment</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="content-card">
+                            <h5 class="mb-3"><i class="fas fa-exchange-alt me-2"></i>Recent Transactions</h5>
+                            <div class="transaction-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-success rounded-circle p-2 me-3">
+                                            <i class="fas fa-arrow-down text-white"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold">Payment Received</div>
+                                            <small class="text-muted">Emma Thompson - Tuition Fee</small>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="amount-display amount-positive">+$1,200</div>
+                                        <small class="text-muted">2 hours ago</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="transaction-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-warning rounded-circle p-2 me-3">
+                                            <i class="fas fa-clock text-white"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold">Pending Payment</div>
+                                            <small class="text-muted">James Wilson - Library Fee</small>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="amount-display amount-warning">$150</div>
+                                        <small class="text-muted">Due in 2 days</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="transaction-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-danger rounded-circle p-2 me-3">
+                                            <i class="fas fa-arrow-up text-white"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold">Refund Processed</div>
+                                            <small class="text-muted">Michael Brown - Transport Fee</small>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="amount-display amount-negative">-$100</div>
+                                        <small class="text-muted">Yesterday</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="transaction-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-info rounded-circle p-2 me-3">
+                                            <i class="fas fa-edit text-white"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold">Fee Adjustment</div>
+                                            <small class="text-muted">Lisa Garcia - Scholarship Applied</small>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="amount-display amount-negative">-$200</div>
+                                        <small class="text-muted">3 days ago</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reports Tab -->
+                    <div class="tab-pane fade" id="reports" role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="revenue-chart">
+                                    <h5><i class="fas fa-chart-line me-2"></i>Monthly Revenue Trend</h5>
+                                    <canvas id="revenueChart" height="200"></canvas>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="revenue-chart">
+                                    <h5><i class="fas fa-chart-pie me-2"></i>Payment Status Distribution</h5>
+                                    <canvas id="paymentChart" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="content-card text-center">
+                                    <i class="fas fa-file-alt fa-3x text-primary mb-3"></i>
+                                    <h6>Monthly Report</h6>
+                                    <p class="text-muted">Detailed monthly financial summary</p>
+                                    <button class="btn btn-outline-primary btn-sm" onclick="generateReport('monthly')">
+                                        <i class="fas fa-download me-1"></i>Generate
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="content-card text-center">
+                                    <i class="fas fa-chart-bar fa-3x text-success mb-3"></i>
+                                    <h6>Collection Report</h6>
+                                    <p class="text-muted">Fee collection analysis</p>
+                                    <button class="btn btn-outline-success btn-sm" onclick="generateReport('collection')">
+                                        <i class="fas fa-download me-1"></i>Generate
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="content-card text-center">
+                                    <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
+                                    <h6>Outstanding Report</h6>
+                                    <p class="text-muted">Overdue payments summary</p>
+                                    <button class="btn btn-outline-warning btn-sm" onclick="generateReport('outstanding')">
+                                        <i class="fas fa-download me-1"></i>Generate
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Record Payment Modal -->
+    <div class="modal fade" id="recordPaymentModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-plus me-2"></i>Record Payment
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="recordPaymentForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="studentSearch" placeholder="Search student...">
+                                    <label for="studentSearch">Search Student</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="selectedStudentId" readonly>
+                                    <label for="selectedStudentId">Student ID</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="feeType" required>
+                                        <option value="">Select Fee Type</option>
+                                        <option value="tuition">Tuition Fee</option>
+                                        <option value="library">Library Fee</option>
+                                        <option value="transport">Transport Fee</option>
+                                        <option value="lab">Lab Fee</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <label for="feeType">Fee Type</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="number" class="form-control" id="paymentAmount" step="0.01" required>
+                                    <label for="paymentAmount">Payment Amount ($)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="paymentMethod" required>
+                                        <option value="">Payment Method</option>
+                                        <option value="cash">Cash</option>
+                                        <option value="check">Check</option>
+                                        <option value="credit_card">Credit Card</option>
+                                        <option value="bank_transfer">Bank Transfer</option>
+                                        <option value="online">Online Payment</option>
+                                    </select>
+                                    <label for="paymentMethod">Payment Method</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="date" class="form-control" id="paymentDate" required>
+                                    <label for="paymentDate">Payment Date</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="transactionReference">
+                            <label for="transactionReference">Transaction Reference/Receipt Number</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" id="paymentNotes" style="height: 80px"></textarea>
+                            <label for="paymentNotes">Notes (Optional)</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" onclick="savePayment()">
+                        <i class="fas fa-save me-1"></i>Record Payment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generate Invoice Modal -->
+    <div class="modal fade" id="generateInvoiceModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-file-invoice me-2"></i>Generate Invoice
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="generateInvoiceForm">
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="invoiceStudent" required>
+                                <option value="">Select Student</option>
+                                <option value="STU001">Emma Thompson (STU001)</option>
+                                <option value="STU002">James Wilson (STU002)</option>
+                                <option value="STU003">Sarah Davis (STU003)</option>
+                            </select>
+                            <label for="invoiceStudent">Student</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="invoiceGrade" required>
+                                <option value="">Select Grade</option>
+                                <option value="1">Grade 1</option>
+                                <option value="2">Grade 2</option>
+                                <option value="3">Grade 3</option>
+                                <option value="4">Grade 4</option>
+                                <option value="5">Grade 5</option>
+                                <option value="6">Grade 6</option>
+                            </select>
+                            <label for="invoiceGrade">Grade</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="invoiceDueDate" required>
+                            <label for="invoiceDueDate">Due Date</label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Select Fee Types:</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="tuitionFee" checked>
+                                <label class="form-check-label" for="tuitionFee">Tuition Fee</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="libraryFee">
+                                <label class="form-check-label" for="libraryFee">Library Fee</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="transportFee">
+                                <label class="form-check-label" for="transportFee">Transport Fee</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="labFee">
+                                <label class="form-check-label" for="labFee">Lab Fee</label>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" id="invoiceNotes" style="height: 80px"></textarea>
+                            <label for="invoiceNotes">Additional Notes</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="generateInvoice()">
+                        <i class="fas fa-file-invoice me-1"></i>Generate Invoice
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Fee Type Modal -->
+    <div class="modal fade" id="addFeeModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-plus me-2"></i>Add Fee Type
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addFeeForm">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="feeTypeName" required>
+                            <label for="feeTypeName">Fee Type Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" id="feeDescription" style="height: 80px"></textarea>
+                            <label for="feeDescription">Description</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="feeFrequency" required>
+                                        <option value="">Select Frequency</option>
+                                        <option value="monthly">Monthly</option>
+                                        <option value="quarterly">Quarterly</option>
+                                        <option value="yearly">Yearly</option>
+                                        <option value="one-time">One Time</option>
+                                    </select>
+                                    <label for="feeFrequency">Payment Frequency</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input" type="checkbox" id="mandatoryFee">
+                                    <label class="form-check-label" for="mandatoryFee">
+                                        Mandatory Fee
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="saveFeeType()">
+                        <i class="fas fa-save me-1"></i>Save Fee Type
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions FAB -->
+    <div class="quick-actions">
+        <button class="fab" data-bs-toggle="modal" data-bs-target="#recordPaymentModal" title="Record Payment">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script>
+        // Global variables
+        let currentView = 'grid';
+        let currentPage = 1;
+        let itemsPerPage = 12;
+        let financeData = [];
+
+        // Sidebar toggle functionality
+        document.getElementById('toggleBtn').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const toggleBtn = document.getElementById('toggleBtn');
+            
+            sidebar.classList.toggle('active');
+            mainContent.classList.toggle('shifted');
+            toggleBtn.classList.toggle('shifted');
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFinanceData();
+            initializeCharts();
+            setDefaultDates();
+        });
+
+        // Mock data for demonstration
+        function loadFinanceData() {
+            financeData = [
+                {
+                    id: 'STU001',
+                    name: 'Emma Thompson',
+                    grade: 5,
+                    feeType: 'Tuition Fee',
+                    amount: 1200,
+                    dueDate: '2025-05-30',
+                    status: 'paid',
+                    paymentDate: '2025-05-28',
+                    method: 'credit_card'
+                },
+                {
+                    id: 'STU002',
+                    name: 'James Wilson',
+                    grade: 3,
+                    feeType: 'Library Fee',
+                    amount: 150,
+                    dueDate: '2025-05-25',
+                    status: 'pending',
+                    paymentDate: null,
+                    method: null
+                },
+                {
+                    id: 'STU003',
+                    name: 'Sarah Davis',
+                    grade: 4,
+                    feeType: 'Transport Fee',
+                    amount: 300,
+                    dueDate: '2025-05-20',
+                    status: 'overdue',
+                    paymentDate: null,
+                    method: null
+                }
+            ];
+        }
+
+        // Set default dates
+        function setDefaultDates() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('paymentDate').value = today;
+            
+            const nextMonth = new Date();
+            nextMonth.setMonth(nextMonth.getMonth() + 1);
+            document.getElementById('invoiceDueDate').value = nextMonth.toISOString().split('T')[0];
+        }
+
+       function initializeCharts() {
+    // Revenue Chart
+    const revenueCtx = document.getElementById('revenueChart');
+    if (revenueCtx) {
+        new Chart(revenueCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Revenue',
+                    data: [85000, 92000, 88000, 95000, 98000, 102000],
+                    borderColor: '#3498db',
+                    backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Payment Chart
+    const paymentCtx = document.getElementById('paymentChart');
+    if (paymentCtx) {
+        new Chart(paymentCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Paid', 'Pending', 'Overdue', 'Partial'],
+                datasets: [{
+                    data: [1089, 127, 31, 45],
+                    backgroundColor: ['#27ae60', '#f39c12', '#e74c3c', '#3498db']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    }
+}
+</script>

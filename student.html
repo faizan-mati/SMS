@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenwood Academy - Student Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="./assets/css/student.css">
+   
+</head>
+
+<body>
+    <!-- Toggle Button -->
+    <button class="toggle-btn d-md-none" id="toggleBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="p-4">
+            <h4 class="text-center mb-4">
+                <i class="fas fa-graduation-cap me-2"></i>
+                Greenwood Academy
+            </h4>
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="./index.html">
+                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./student.html">
+                    <i class="fas fa-user-graduate me-2"></i> Students
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./teacher.html">
+                    <i class="fas fa-chalkboard-teacher me-2"></i> Teachers
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./classes.html">
+                    <i class="fas fa-book me-2"></i> Classes
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./finance.html">
+                    <i class="fas fa-dollar-sign me-2"></i> Finance
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./event.html">
+                    <i class="fas fa-calendar me-2"></i> Events
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./report.html">
+                    <i class="fas fa-chart-bar me-2"></i> Reports
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./setting.html">
+                    <i class="fas fa-cog me-2"></i> Settings
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Top Navigation -->
+        <nav class="top-navbar">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h2 class="mb-0 text-primary">Student Management</h2>
+                        <small class="text-muted">Manage all student information and records</small>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <div class="d-flex align-items-center justify-content-end">
+                            <button class="btn btn-outline-primary me-2" onclick="refreshData()">
+                                <i class="fas fa-sync-alt me-1"></i>Refresh
+                            </button>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+                                <i class="fas fa-user-plus me-1"></i>Add Student
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <div class="container-fluid p-4">
+            <!-- Statistics Overview -->
+            <div class="stats-grid">
+                <div class="stat-box primary">
+                    <i class="fas fa-users fa-2x mb-2" style="color: var(--primary-color);"></i>
+                    <h3 class="mb-1">1,247</h3>
+                    <p class="text-muted mb-0">Total Students</p>
+                    <small class="text-success"><i class="fas fa-arrow-up"></i> +5.2%</small>
+                </div>
+                <div class="stat-box success">
+                    <i class="fas fa-user-check fa-2x mb-2" style="color: var(--success-color);"></i>
+                    <h3 class="mb-1">1,189</h3>
+                    <p class="text-muted mb-0">Active Students</p>
+                    <small class="text-success"><i class="fas fa-arrow-up"></i> +2.1%</small>
+                </div>
+                <div class="stat-box warning">
+                    <i class="fas fa-clock fa-2x mb-2" style="color: var(--warning-color);"></i>
+                    <h3 class="mb-1">42</h3>
+                    <p class="text-muted mb-0">Pending Admissions</p>
+                    <small class="text-warning"><i class="fas fa-clock"></i> Review needed</small>
+                </div>
+                <div class="stat-box danger">
+                    <i class="fas fa-user-times fa-2x mb-2" style="color: var(--danger-color);"></i>
+                    <h3 class="mb-1">16</h3>
+                    <p class="text-muted mb-0">Inactive Students</p>
+                    <small class="text-danger"><i class="fas fa-arrow-down"></i> -1.2%</small>
+                </div>
+            </div>
+
+            <!-- Search and Filters -->
+            <div class="content-card">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="search-container">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" class="form-control" id="searchStudent"
+                                placeholder="Search students by name, ID, or email...">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex gap-2">
+                            <select class="form-select" id="gradeFilter">
+                                <option value="">All Grades</option>
+                                <option value="1">Grade 1</option>
+                                <option value="2">Grade 2</option>
+                                <option value="3">Grade 3</option>
+                                <option value="4">Grade 4</option>
+                                <option value="5">Grade 5</option>
+                                <option value="6">Grade 6</option>
+                            </select>
+                            <select class="form-select" id="statusFilter">
+                                <option value="">All Status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="pending">Pending</option>
+                            </select>
+                            <button class="btn btn-outline-secondary" onclick="clearFilters()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-chips">
+                    <span class="chip active" data-filter="all">All Students</span>
+                    <span class="chip" data-filter="recent">Recently Added</span>
+                    <span class="chip" data-filter="birthday">Birthday This Month</span>
+                    <span class="chip" data-filter="outstanding">Outstanding Fees</span>
+                    <span class="chip" data-filter="excellent">Excellent Performance</span>
+                </div>
+            </div>
+
+            <!-- Students List/Grid Toggle -->
+            <div class="content-card">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="mb-0">
+                        <i class="fas fa-users me-2"></i>Students Directory
+                        <span class="badge bg-primary ms-2" id="studentCount">1,247</span>
+                    </h5>
+                    <div class="d-flex gap-2">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-outline-primary active" id="gridView" onclick="toggleView('grid')">
+                                <i class="fas fa-th"></i>
+                            </button>
+                            <button class="btn btn-outline-primary" id="listView" onclick="toggleView('list')">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                        <div class="export-buttons">
+                            <button class="btn btn-outline-success" onclick="exportData('excel')">
+                                <i class="fas fa-file-excel me-1"></i>Excel
+                            </button>
+                            <button class="btn btn-outline-info" onclick="exportData('pdf')">
+                                <i class="fas fa-file-pdf me-1"></i>PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grid View -->
+                <div id="gridViewContainer">
+                    <div class="row" id="studentsGrid">
+                        <!-- Students will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- List View (Table) -->
+                <div id="listViewContainer" style="display: none;">
+                    <div class="table-container">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Student ID</th>
+                                    <th>Grade</th>
+                                    <th>Status</th>
+                                    <th>Attendance</th>
+                                    <th>GPA</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentsTable">
+                                <!-- Table rows will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <nav class="mt-4">
+                    <ul class="pagination justify-content-center" id="pagination">
+                        <!-- Pagination will be generated by JavaScript -->
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Student Modal -->
+    <div class="modal fade" id="addStudentModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-user-plus me-2"></i>Add New Student
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addStudentForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="firstName" required>
+                                    <label for="firstName">First Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="lastName" required>
+                                    <label for="lastName">Last Name</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="email" required>
+                                    <label for="email">Email Address</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="tel" class="form-control" id="phone">
+                                    <label for="phone">Phone Number</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="date" class="form-control" id="dateOfBirth" required>
+                                    <label for="dateOfBirth">Date of Birth</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="gender" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <label for="gender">Gender</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="grade" required>
+                                        <option value="">Select Grade</option>
+                                        <option value="1">Grade 1</option>
+                                        <option value="2">Grade 2</option>
+                                        <option value="3">Grade 3</option>
+                                        <option value="4">Grade 4</option>
+                                        <option value="5">Grade 5</option>
+                                        <option value="6">Grade 6</option>
+                                    </select>
+                                    <label for="grade">Grade</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" id="address" style="height: 100px"></textarea>
+                            <label for="address">Address</label>
+                        </div>
+                        <hr>
+                        <h6 class="mb-3"><i class="fas fa-users me-2"></i>Parent/Guardian Information</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="parentName" required>
+                                    <label for="parentName">Parent/Guardian Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="tel" class="form-control" id="parentPhone" required>
+                                    <label for="parentPhone">Parent Phone</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="parentEmail">
+                            <label for="parentEmail">Parent Email</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="saveStudent()">
+                        <i class="fas fa-save me-1"></i>Save Student
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Details Modal -->
+    <div class="modal fade" id="studentDetailsModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-user me-2"></i>Student Details
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="studentDetailsContent">
+                        <!-- Content will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions FAB -->
+    <div class="quick-actions">
+        <button class="fab" data-bs-toggle="modal" data-bs-target="#addStudentModal" title="Add Student">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Complete student data array
+        const studentsData = [
+            {
+                id: 'STU001',
+                firstName: 'Alice',
+                lastName: 'Johnson',
+                email: 'alice.johnson@email.com',
+                phone: '+1-555-0101',
+                dateOfBirth: '2010-05-15',
+                gender: 'female',
+                grade: '6',
+                address: '123 Oak Street, Springfield, IL 62701',
+                parentName: 'Robert Johnson',
+                parentPhone: '+1-555-0102',
+                parentEmail: 'robert.johnson@email.com',
+                status: 'active',
+                gpa: 3.8,
+                attendance: 95,
+                enrollmentDate: '2023-09-01',
+                avatar: 'https://via.placeholder.com/60x60/3498db/ffffff?text=AJ',
+                subjects: [
+                    { name: 'Mathematics', grade: 'A', percentage: 92 },
+                    { name: 'Science', grade: 'A-', percentage: 88 },
+                    { name: 'English', grade: 'B+', percentage: 85 },
+                    { name: 'History', grade: 'A', percentage: 90 },
+                    { name: 'Art', grade: 'B', percentage: 82 }
+                ]
+            },
+            {
+                id: 'STU002',
+                firstName: 'Bob',
+                lastName: 'Smith',
+                email: 'bob.smith@email.com',
+                phone: '+1-555-0201',
+                dateOfBirth: '2009-08-22',
+                gender: 'male',
+                grade: '5',
+                address: '456 Pine Avenue, Springfield, IL 62702',
+                parentName: 'Mary Smith',
+                parentPhone: '+1-555-0202',
+                parentEmail: 'mary.smith@email.com',
+                status: 'active',
+                gpa: 3.5,
+                attendance: 88,
+                enrollmentDate: '2023-09-05',
+                avatar: 'https://via.placeholder.com/60x60/e74c3c/ffffff?text=BS',
+                subjects: [
+                    { name: 'Mathematics', grade: 'B+', percentage: 87 },
+                    { name: 'Science', grade: 'B', percentage: 84 },
+                    { name: 'English', grade: 'A-', percentage: 89 },
+                    { name: 'History', grade: 'B', percentage: 83 },
+                    { name: 'Art', grade: 'A', percentage: 91 }
+                ]
+            },
+            {
+                id: 'STU003',
+                firstName: 'Carol',
+                lastName: 'Davis',
+                email: 'carol.davis@email.com',
+                phone: '+1-555-0301',
+                dateOfBirth: '2011-03-10',
+                gender: 'female',
+                grade: '4',
+                address: '789 Elm Street, Springfield, IL 62703',
+                parentName: 'James Davis',
+                parentPhone: '+1-555-0302',
+                parentEmail: 'james.davis@email.com',
+                status: 'active',
+                gpa: 3.9,
+                attendance: 97,
+                enrollmentDate: '2023-08-28',
+                avatar: 'https://via.placeholder.com/60x60/27ae60/ffffff?text=CD',
+                subjects: [
+                    { name: 'Mathematics', grade: 'A', percentage: 94 },
+                    { name: 'Science', grade: 'A', percentage: 93 },
+                    { name: 'English', grade: 'A-', percentage: 89 },
+                    { name: 'History', grade: 'A+', percentage: 96 },
+                    { name: 'Art', grade: 'B+', percentage: 86 }
+                ]
+            },
+            {
+                id: 'STU004',
+                firstName: 'David',
+                lastName: 'Wilson',
+                email: 'david.wilson@email.com',
+                phone: '+1-555-0401',
+                dateOfBirth: '2008-11-18',
+                gender: 'male',
+                grade: '3',
+                address: '321 Maple Drive, Springfield, IL 62704',
+                parentName: 'Linda Wilson',
+                parentPhone: '+1-555-0402',
+                parentEmail: 'linda.wilson@email.com',
+                status: 'pending',
+                gpa: 3.2,
+                attendance: 78,
+                enrollmentDate: '2023-09-15',
+                avatar: 'https://via.placeholder.com/60x60/f39c12/ffffff?text=DW',
+                subjects: [
+                    { name: 'Mathematics', grade: 'B-', percentage: 79 },
+                    { name: 'Science', grade: 'C+', percentage: 76 },
+                    { name: 'English', grade: 'B', percentage: 82 },
+                    { name: 'History', grade: 'C', percentage: 74 },
+                    { name: 'Art', grade: 'B+', percentage: 85 }
+                ]
+            },
+            {
+                id: 'STU005',
+                firstName: 'Emma',
+                lastName: 'Brown',
+                email: 'emma.brown@email.com',
+                phone: '+1-555-0501',
+                dateOfBirth: '2012-01-25',
+                gender: 'female',
+                grade: '2',
+                address: '654 Cedar Lane, Springfield, IL 62705',
+                parentName: 'Michael Brown',
+                parentPhone: '+1-555-0502',
+                parentEmail: 'michael.brown@email.com',
+                status: 'active',
+                gpa: 3.7,
+                attendance: 92,
+                enrollmentDate: '2023-09-01',
+                avatar: 'https://via.placeholder.com/60x60/9b59b6/ffffff?text=EB',
+                subjects: [
+                    { name: 'Mathematics', grade: 'A-', percentage: 88 },
+                    { name: 'Science', grade: 'B+', percentage: 86 },
+                    { name: 'English', grade: 'A', percentage: 91 },
+                    { name: 'History', grade: 'B+', percentage: 87 },
+                    { name: 'Art', grade: 'A', percentage: 92 }
+                ]
+            },
+            {
+                id: 'STU006',
+                firstName: 'Frank',
+                lastName: 'Miller',
+                email: 'frank.miller@email.com',
+                phone: '+1-555-0601',
+                dateOfBirth: '2013-07-08',
+                gender: 'male',
+                grade: '1',
+                address: '987 Birch Road, Springfield, IL 62706',
+                parentName: 'Susan Miller',
+                parentPhone: '+1-555-0602',
+                parentEmail: 'susan.miller@email.com',
+                status: 'inactive',
+                gpa: 2.8,
+                attendance: 65,
+                enrollmentDate: '2023-08-20',
+                avatar: 'https://via.placeholder.com/60x60/34495e/ffffff?text=FM',
+                subjects: [
+                    { name: 'Mathematics', grade: 'C', percentage: 72 },
+                    { name: 'Science', grade: 'C-', percentage: 68 },
+                    { name: 'English', grade: 'B-', percentage: 79 },
+                    { name: 'History', grade: 'C', percentage: 73 },
+                    { name: 'Art', grade: 'B', percentage: 81 }
+                ]
+            }
+        ];
+
+        // Global variables
+        let currentView = 'grid';
+        let currentPage = 1;
+        let itemsPerPage = 12;
+        let filteredStudents = [...studentsData];
+        let currentFilter = 'all';
+
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', function () {
+            initializeApp();
+        });
+
+        function initializeApp() {
+            setupEventListeners();
+            updateStatistics();
+            renderStudents();
+            setupSidebar();
+        }
+
+        function setupEventListeners() {
+            // Search functionality
+            document.getElementById('searchStudent').addEventListener('input', handleSearch);
+
+            // Filter functionality
+            document.getElementById('gradeFilter').addEventListener('change', applyFilters);
+            document.getElementById('statusFilter').addEventListener('change', applyFilters);
+
+            // Filter chips
+            document.querySelectorAll('.chip').forEach(chip => {
+                chip.addEventListener('click', function () {
+                    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    applyFilterChips();
+                });
+            });
+
+            // Form submission
+            document.getElementById('addStudentForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                saveStudent();
+            });
+
+            // Sidebar toggle for mobile
+            const toggleBtn = document.getElementById('toggleBtn');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', toggleSidebar);
+            }
+        }
+
+        function setupSidebar() {
+            // Handle responsive sidebar
+            function handleResize() {
+                const sidebar = document.getElementById('sidebar');
+                const mainContent = document.getElementById('mainContent');
+                const toggleBtn = document.getElementById('toggleBtn');
+
+                if (window.innerWidth >= 768) {
+                    sidebar.classList.add('active');
+                    mainContent.classList.add('shifted');
+                    if (toggleBtn) toggleBtn.classList.add('shifted');
+                } else {
+                    sidebar.classList.remove('active');
+                    mainContent.classList.remove('shifted');
+                    if (toggleBtn) toggleBtn.classList.remove('shifted');
+                }
+            }
+
+            handleResize();
+            window.addEventListener('resize', handleResize);
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const toggleBtn = document.getElementById('toggleBtn');
+
+            sidebar.classList.toggle('active');
+
+            if (window.innerWidth >= 768) {
+                mainContent.classList.toggle('shifted');
+                toggleBtn.classList.toggle('shifted');
+            }
+        }
+
+        function updateStatistics() {
+            const totalStudents = studentsData.length;
+            const activeStudents = studentsData.filter(s => s.status === 'active').length;
+            const pendingStudents = studentsData.filter(s => s.status === 'pending').length;
+            const inactiveStudents = studentsData.filter(s => s.status === 'inactive').length;
+
+            // Update the statistics in the DOM if elements exist
+            const stats = document.querySelectorAll('.stat-box h3');
+            if (stats.length >= 4) {
+                stats[0].textContent = totalStudents.toLocaleString();
+                stats[1].textContent = activeStudents.toLocaleString();
+                stats[2].textContent = pendingStudents.toLocaleString();
+                stats[3].textContent = inactiveStudents.toLocaleString();
+            }
+
+            // Update student count badge
+            const countBadge = document.getElementById('studentCount');
+            if (countBadge) {
+                countBadge.textContent = filteredStudents.length.toLocaleString();
+            }
+        }
+
+        function handleSearch() {
+            const searchTerm = document.getElementById('searchStudent').value.toLowerCase().trim();
+
+            if (searchTerm === '') {
+                filteredStudents = [...studentsData];
+            } else {
+                filteredStudents = studentsData.filter(student =>
+                    student.firstName.toLowerCase().includes(searchTerm) ||
+                    student.lastName.toLowerCase().includes(searchTerm) ||
+                    student.email.toLowerCase().includes(searchTerm) ||
+                    student.id.toLowerCase().includes(searchTerm) ||
+                    `${student.firstName} ${student.lastName}`.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            currentPage = 1;
+            renderStudents();
+            updateStatistics();
+        }
+
+        function applyFilters() {
+            const gradeFilter = document.getElementById('gradeFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            const searchTerm = document.getElementById('searchStudent').value.toLowerCase().trim();
+
+            filteredStudents = studentsData.filter(student => {
+                const matchesSearch = searchTerm === '' ||
+                    student.firstName.toLowerCase().includes(searchTerm) ||
+                    student.lastName.toLowerCase().includes(searchTerm) ||
+                    student.email.toLowerCase().includes(searchTerm) ||
+                    student.id.toLowerCase().includes(searchTerm) ||
+                    `${student.firstName} ${student.lastName}`.toLowerCase().includes(searchTerm);
+
+                const matchesGrade = gradeFilter === '' || student.grade === gradeFilter;
+                const matchesStatus = statusFilter === '' || student.status === statusFilter;
+
+                return matchesSearch && matchesGrade && matchesStatus;
+            });
+
+            currentPage = 1;
+            renderStudents();
+            updateStatistics();
+        }
+
+        function applyFilterChips() {
+            const currentDate = new Date();
+            const currentMonth = currentDate.getMonth();
+
+            switch (currentFilter) {
+                case 'all':
+                    filteredStudents = [...studentsData];
+                    break;
+                case 'recent':
+                    filteredStudents = studentsData.filter(student => {
+                        const enrollmentDate = new Date(student.enrollmentDate);
+                        const daysDiff = (currentDate - enrollmentDate) / (1000 * 60 * 60 * 24);
+                        return daysDiff <= 30;
+                    });
+                    break;
+                case 'birthday':
+                    filteredStudents = studentsData.filter(student => {
+                        const birthDate = new Date(student.dateOfBirth);
+                        return birthDate.getMonth() === currentMonth;
+                    });
+                    break;
+                case 'outstanding':
+                    // Simulate outstanding fees filter
+                    filteredStudents = studentsData.filter(student =>
+                        Math.random() > 0.7 // Random simulation
+                    );
+                    break;
+                case 'excellent':
+                    filteredStudents = studentsData.filter(student => student.gpa >= 3.5);
+                    break;
+                default:
+                    filteredStudents = [...studentsData];
+            }
+
+            currentPage = 1;
+            renderStudents();
+            updateStatistics();
+        }
+
+        function clearFilters() {
+            document.getElementById('gradeFilter').value = '';
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('searchStudent').value = '';
+
+            // Reset active chip
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            document.querySelector('.chip[data-filter="all"]').classList.add('active');
+            currentFilter = 'all';
+
+            filteredStudents = [...studentsData];
+            currentPage = 1;
+            renderStudents();
+            updateStatistics();
+        }
+
+        function toggleView(view) {
+            currentView = view;
+
+            // Update button states
+            document.getElementById('gridView').classList.toggle('active', view === 'grid');
+            document.getElementById('listView').classList.toggle('active', view === 'list');
+
+            // Show/hide containers
+            document.getElementById('gridViewContainer').style.display = view === 'grid' ? 'block' : 'none';
+            document.getElementById('listViewContainer').style.display = view === 'list' ? 'block' : 'none';
+
+            renderStudents();
+        }
+
+        function renderStudents() {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const studentsToShow = filteredStudents.slice(startIndex, endIndex);
+
+            if (currentView === 'grid') {
+                renderGridView(studentsToShow);
+            } else {
+                renderListView(studentsToShow);
+            }
+
+            renderPagination();
+        }
+
+        function renderGridView(students) {
+            const container = document.getElementById('studentsGrid');
+
+            if (students.length === 0) {
+                container.innerHTML = `
+            <div class="col-12 text-center py-5">
+                <i class="fas fa-user-slash fa-3x text-muted mb-3"></i>
+                <h5 class="text-muted">No students found</h5>
+                <p class="text-muted">Try adjusting your search or filters</p>
+            </div>
+        `;
+                return;
+            }
+
+            container.innerHTML = students.map(student => `
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card student-card h-100" onclick="viewStudentDetails('${student.id}')">
+                <div class="card-body position-relative">
+                    <div class="student-status">
+                        <span class="badge bg-${getStatusColor(student.status)}">${student.status}</span>
+                    </div>
+                    <div class="text-center mb-3">
+                        <img src="${student.avatar}" alt="${student.firstName}" class="student-avatar">
+                        <h6 class="mt-2 mb-1">${student.firstName} ${student.lastName}</h6>
+                        <small class="text-muted">${student.id}</small>
+                    </div>
+                    <div class="student-info">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <small class="text-muted">Grade:</small>
+                            <span class="badge bg-primary">Grade ${student.grade}</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <small class="text-muted">GPA:</small>
+                            <span class="fw-bold text-${getGPAColor(student.gpa)}">${student.gpa}</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <small class="text-muted">Attendance:</small>
+                            <span class="fw-bold text-${getAttendanceColor(student.attendance)}">${student.attendance}%</span>
+                        </div>
+                        <div class="d-flex gap-1">
+                            <button class="btn btn-sm btn-outline-primary btn-action flex-fill" onclick="editStudent('${student.id}'); event.stopPropagation();">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-info btn-action flex-fill" onclick="viewStudentDetails('${student.id}'); event.stopPropagation();">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger btn-action flex-fill" onclick="deleteStudent('${student.id}'); event.stopPropagation();">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+        }
+
+        function renderListView(students) {
+            const tbody = document.getElementById('studentsTable');
+
+            if (students.length === 0) {
+                tbody.innerHTML = `
+            <tr>
+                <td colspan="7" class="text-center py-5">
+                    <i class="fas fa-user-slash fa-2x text-muted mb-3"></i>
+                    <div>
+                        <h6 class="text-muted">No students found</h6>
+                        <small class="text-muted">Try adjusting your search or filters</small>
+                    </div>
+                </td>
+            </tr>
+        `;
+                return;
+            }
+
+            tbody.innerHTML = students.map(student => `
+        <tr onclick="viewStudentDetails('${student.id}')" style="cursor: pointer;">
+            <td>
+                <div class="d-flex align-items-center">
+                    <img src="${student.avatar}" alt="${student.firstName}" class="student-avatar me-3" style="width: 40px; height: 40px;">
+                    <div>
+                        <div class="fw-bold">${student.firstName} ${student.lastName}</div>
+                        <small class="text-muted">${student.email}</small>
+                    </div>
+                </div>
+            </td>
+            <td><span class="badge bg-secondary">${student.id}</span></td>
+            <td><span class="badge bg-primary">Grade ${student.grade}</span></td>
+            <td><span class="badge bg-${getStatusColor(student.status)}">${student.status}</span></td>
+            <td>
+                <div class="d-flex align-items-center">
+                    <span class="attendance-indicator attendance-${getAttendanceStatus(student.attendance)}"></span>
+                    <span class="text-${getAttendanceColor(student.attendance)}">${student.attendance}%</span>
+                </div>
+            </td>
+            <td>
+                <span class="grade-badge bg-${getGPAColor(student.gpa)} text-white">${student.gpa}</span>
+            </td>
+            <td>
+                <div class="d-flex gap-1">
+                    <button class="btn btn-sm btn-outline-primary" onclick="editStudent('${student.id}'); event.stopPropagation();" title="Edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-info" onclick="viewStudentDetails('${student.id}'); event.stopPropagation();" title="View">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteStudent('${student.id}'); event.stopPropagation();" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    `).join('');
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredStudents.length / itemsPerPage);
+            const pagination = document.getElementById('pagination');
+
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let paginationHTML = '';
+
+            // Previous button
+            if (currentPage > 1) {
+                paginationHTML += `
+            <li class="page-item">
+                <a class="page-link" href="#" onclick="changePage(${currentPage - 1}); return false;">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+            </li>
+        `;
+            }
+
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    paginationHTML += `<li class="page-item active"><span class="page-link">${i}</span></li>`;
+                } else if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 2) {
+                    paginationHTML += `
+                <li class="page-item">
+                    <a class="page-link" href="#" onclick="changePage(${i}); return false;">${i}</a>
+                </li>
+            `;
+                } else if (i === currentPage - 3 || i === currentPage + 3) {
+                    paginationHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+                }
+            }
+
+            // Next button
+            if (currentPage < totalPages) {
+                paginationHTML += `
+            <li class="page-item">
+                <a class="page-link" href="#" onclick="changePage(${currentPage + 1}); return false;">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </li>
+        `;
+            }
+
+            pagination.innerHTML = paginationHTML;
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            renderStudents();
+
+            // Scroll to top of student list
+            document.querySelector('.content-card').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function saveStudent() {
+            const form = document.getElementById('addStudentForm');
+            const formData = new FormData(form);
+
+            // Validate required fields
+            const requiredFields = ['firstName', 'lastName', 'email', 'dateOfBirth', 'gender', 'grade', 'parentName', 'parentPhone'];
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field);
+                if (!element.value.trim()) {
+                    element.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    element.classList.remove('is-invalid');
+                }
+            });
+
+            if (!isValid) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Generate new student ID
+            const maxId = Math.max(...studentsData.map(s => parseInt(s.id.replace('STU', ''))));
+            const newId = `STU${String(maxId + 1).padStart(3, '0')}`;
+
+            // Create new student object
+            const newStudent = {
+                id: newId,
+                firstName: document.getElementById('firstName').value.trim(),
+                lastName: document.getElementById('lastName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                dateOfBirth: document.getElementById('dateOfBirth').value,
+                gender: document.getElementById('gender').value,
+                grade: document.getElementById('grade').value,
+                address: document.getElementById('address').value.trim(),
+                parentName: document.getElementById('parentName').value.trim(),
+                parentPhone: document.getElementById('parentPhone').value.trim(),
+                parentEmail: document.getElementById('parentEmail').value.trim(),
+                status: 'active',
+                gpa: 0.0,
+                attendance: 0,
+                enrollmentDate: new Date().toISOString().split('T')[0],
+                avatar: `https://via.placeholder.com/60x60/3498db/ffffff?text=${document.getElementById('firstName').value.charAt(0)}${document.getElementById('lastName').value.charAt(0)}`,
+                subjects: []
+            };
+
+            // Add to students array
+            studentsData.push(newStudent);
+
+            // Reset form and close modal
+            form.reset();
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addStudentModal'));
+            modal.hide();
+
+            // Refresh the display
+            filteredStudents = [...studentsData];
+            currentPage = 1;
+            renderStudents();
+            updateStatistics();
+
+            // Show success message
+            showNotification('Student added successfully!', 'success');
+        }
+
+        function editStudent(studentId) {
+            const student = studentsData.find(s => s.id === studentId);
+            if (!student) return;
+
+            // Populate form with existing data
+            document.getElementById('firstName').value = student.firstName;
+            document.getElementById('lastName').value = student.lastName;
+            document.getElementById('email').value = student.email;
+            document.getElementById('phone').value = student.phone || '';
+            document.getElementById('dateOfBirth').value = student.dateOfBirth;
+            document.getElementById('gender').value = student.gender;
+            document.getElementById('grade').value = student.grade;
+            document.getElementById('address').value = student.address || '';
+            document.getElementById('parentName').value = student.parentName;
+            document.getElementById('parentPhone').value = student.parentPhone;
+            document.getElementById('parentEmail').value = student.parentEmail || '';
+
+            // Change modal title and button
+            document.querySelector('#addStudentModal .modal-title').innerHTML = '<i class="fas fa-user-edit me-2"></i>Edit Student';
+            document.querySelector('#addStudentModal .btn-primary').innerHTML = '<i class="fas fa-save me-1"></i>Update Student';
+            document.querySelector('#addStudentModal .btn-primary').setAttribute('onclick', `updateStudent('${studentId}')`);
+
+            // Show modal
+            new bootstrap.Modal(document.getElementById('addStudentModal')).show();
+        }
+
+        function updateStudent(studentId) {
+            const studentIndex = studentsData.findIndex(s => s.id === studentId);
+            if (studentIndex === -1) return;
+
+            const form = document.getElementById('addStudentForm');
+
+            // Validate required fields
+            const requiredFields = ['firstName', 'lastName', 'email', 'dateOfBirth', 'gender', 'grade', 'parentName', 'parentPhone'];
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field);
+                if (!element.value.trim()) {
+                    element.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    element.classList.remove('is-invalid');
+                }
+            });
+
+            if (!isValid) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Update student object
+            studentsData[studentIndex] = {
+                ...studentsData[studentIndex],
+                firstName: document.getElementById('firstName').value.trim(),
+                lastName: document.getElementById('lastName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                dateOfBirth: document.getElementById('dateOfBirth').value,
+                gender: document.getElementById('gender').value,
+                grade: document.getElementById('grade').value,
+                address: document.getElementById('address').value.trim(),
+                parentName: document.getElementById('parentName').value.trim(),
+                parentPhone: document.getElementById('parentPhone').value.trim(),
+                parentEmail: document.getElementById('parentEmail').value.trim()
+            };
+
+            // Reset form and close modal
+            form.reset();
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addStudentModal'));
+            modal.hide();
+
+            // Reset modal to add mode
+            document.querySelector('#addStudentModal .modal-title').innerHTML = '<i class="fas fa-user-plus me-2"></i>Add New Student';
+            document.querySelector('#addStudentModal .btn-primary').innerHTML = '<i class="fas fa-save me-1"></i>Save Student';
+            document.querySelector('#addStudentModal .btn-primary').setAttribute('onclick', 'saveStudent()');
+
+            // Refresh the display
+            applyFilters();
+            showNotification('Student updated successfully!', 'success');
+        }
+
+        function deleteStudent(studentId) {
+            const student = studentsData.find(s => s.id === studentId);
+            if (!student) return;
+
+            if (confirm(`Are you sure you want to delete ${student.firstName} ${student.lastName}?`)) {
+                const index = studentsData.findIndex(s => s.id === studentId);
+                studentsData.splice(index, 1);
+
+                // Refresh the display
+                applyFilters();
+                showNotification('Student deleted successfully!', 'success');
+            }
+        }
+
+        function viewStudentDetails(studentId) {
+            const student = studentsData.find(s => s.id === studentId);
+            if (!student) return;
+
+            const detailsContent = document.getElementById('studentDetailsContent');
+
+            detailsContent.innerHTML = `
+        <div class="row">
+            <div class="col-md-4">
+                <div class="text-center mb-4">
+                    <img src="${student.avatar}" alt="${student.firstName}" class="rounded-circle mb-3" style="width: 120px; height: 120px; object-fit: cover;">
+                    <h4>${student.firstName} ${student.lastName}</h4>
+                    <p class="text-muted">${student.id}</p>
+                    <span class="badge bg-${getStatusColor(student.status)} fs-6">${student.status.toUpperCase()}</span>
+                </div>
+                
+                <div class="parent-info">
+                    <h6><i class="fas fa-users me-2"></i>Parent/Guardian Information</h6>
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <strong>Name:</strong> ${student.parentName}
+                        </div>
+                        <div class="col-12 mb-2">
+                            <strong>Phone:</strong> ${student.parentPhone}
+                        </div>
+                        <div class="col-12 mb-2">
+                            <strong>Email:</strong> ${student.parentEmail || 'Not provided'}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-8">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-info-tab" data-bs-toggle="tab" data-bs-target="#nav-info" type="button" role="tab">
+                            <i class="fas fa-info-circle me-1"></i>Personal Info
+                        </button>
+                        <button class="nav-link" id="nav-academic-tab" data-bs-toggle="tab" data-bs-target="#nav-academic" type="button" role="tab">
+                            <i class="fas fa-graduation-cap me-1"></i>Academic
+                        </button>
+                        <button class="nav-link" id="nav-attendance-tab" data-bs-toggle="tab" data-bs-target="#nav-attendance" type="button" role="tab">
+                            <i class="fas fa-calendar-check me-1"></i>Attendance
+                        </button>
+                    </div>
+                </nav>
+                
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-info" role="tabpanel">
+                        <div class="row mt-3">
+                            <div class="col-md-6 mb-3">
+                                <label class="fw-bold text-muted">Email:</label>
+                                <p>${student.email}</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="fw-bold text-muted">Phone:</label>
+                                <p>${student.phone || 'Not provided'}</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="fw-bold text-muted">Date of Birth:</label>
+                                <p>${formatDate(student.dateOfBirth)}</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="fw-bold text-muted">Gender:</label>
+                                <p>${student.gender.charAt(0).toUpperCase() + student.gender.slice(1)}</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="fw-bold text-muted">Grade:</label>
+                                <p><span class="badge bg-primary">Grade ${student.grade}</span></p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="fw-bold text-muted">Enrollment Date:</label>
+                                <p>${formatDate(student.enrollmentDate)}</p>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label class="fw-bold text-muted">Address:</label>
+                                <p>${student.address || 'Not provided'}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane fade" id="nav-academic" role="tabpanel">
+                        <div class="academic-progress">
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="text-center">
+                                        <h3 class="text-${getGPAColor(student.gpa)}">${student.gpa}</h3>
+                                        <p class="text-muted">Current GPA</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-center">
+                                        <div class="progress-ring">
+                                            <svg class="progress-ring" width="60" height="60">
+                                                <circle cx="30" cy="30" r="25" stroke="#e9ecef" stroke-width="4" fill="transparent"/>
+                                                <circle cx="30" cy="30" r="25" stroke="${getGPAColorHex(student.gpa)}" stroke-width="4" fill="transparent"
+                                                    stroke-dasharray="${2 * Math.PI * 25}" stroke-dashoffset="${2 * Math.PI * 25 * (1 - student.gpa / 4)}"/>
+                                            </svg>
+                                        </div>
+                                        <p class="text-muted mt-2">Performance</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            ${student.subjects && student.subjects.length > 0 ? `
+                                <h6 class="mb-3">Subject Performance</h6>
+                                ${student.subjects.map(subject => `
+                                    <div class="subject-progress">
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span class="fw-bold">${subject.name}</span>
+                                            <span class="badge bg-${getGradeColor(subject.grade)}">${subject.grade} (${subject.percentage}%)</span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-${getGradeColor(subject.grade)}" 
+                                                 style="width: ${subject.percentage}%"></div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            ` : '<p class="text-muted">No subject data available</p>'}
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane fade" id="nav-attendance" role="tabpanel">
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <h3 class="text-${getAttendanceColor(student.attendance)}">${student.attendance}%</h3>
+                                    <p class="text-muted">Overall Attendance</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <div class="progress" style="height: 20px;">
+                                        <div class="progress-bar bg-${getAttendanceColor(student.attendance)}" 
+                                             style="width: ${student.attendance}%">
+                                            ${student.attendance}%
+                                        </div>
+                                    </div>
+                                    <p class="text-muted mt-2">Attendance Rate</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h6>Attendance Summary</h6>
+                            <div class="row">
+                                <div class="col-md-4 text-center">
+                                    <div class="p-3 bg-success bg-opacity-10 rounded">
+                                        <i class="fas fa-check-circle text-success fa-2x mb-2"></i>
+                                        <h5 class="text-success">${Math.round(student.attendance * 1.8)}</h5>
+                                        <small class="text-muted">Days Present</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <div class="p-3 bg-danger bg-opacity-10 rounded">
+                                        <i class="fas fa-times-circle text-danger fa-2x mb-2"></i>
+                                        <h5 class="text-danger">${Math.round((100 - student.attendance) * 1.8)}</h5>
+                                        <small class="text-muted">Days Absent</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <div class="p-3 bg-warning bg-opacity-10 rounded">
+                                        <i class="fas fa-clock text-warning fa-2x mb-2"></i>
+                                        <h5 class="text-warning">${Math.round(Math.random() * 5)}</h5>
+                                        <small class="text-muted">Late Arrivals</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+            // Show modal
+            new bootstrap.Modal(document.getElementById('studentDetailsModal')).show();
+        }
+
+        function exportData(format) {
+            if (format === 'excel') {
+                exportToExcel();
+            } else if (format === 'pdf') {
+                exportToPDF();
+            }
+        }
+
+        function exportToExcel() {
+            const data = filteredStudents.map(student => ({
+                'Student ID': student.id,
+                'First Name': student.firstName,
+                'Last Name': student.lastName,
+                'Email': student.email,
+                'Phone': student.phone || '',
+                'Date of Birth': student.dateOfBirth,
+                'Gender': student.gender,
+                'Grade': student.grade,
+                'Status': student.status,
+                'GPA': student.gpa,
+                'Attendance': student.attendance + '%',
+                'Parent Name': student.parentName,
+                'Parent Phone': student.parentPhone,
+                'Parent Email': student.parentEmail || '',
+                'Address': student.address || '',
+                'Enrollment Date': student.enrollmentDate
+            }));
+
+            // Create CSV content
+            const headers = Object.keys(data[0]);
+            const csvContent = [
+                headers.join(','),
+                ...data.map(row => headers.map(header => `"${row[header]}"`).join(','))
+            ].join('\n');
+
+            // Download file
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `students_export_${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+
+            showNotification('Excel export completed!', 'success');
+        }
+
+        function exportToPDF() {
+            // Simple text-based PDF export simulation
+            const content = filteredStudents.map(student =>
+                `${student.id} - ${student.firstName} ${student.lastName} - Grade ${student.grade} - ${student.status}`
+            ).join('\n');
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `students_report_${new Date().toISOString().split('T')[0]}.txt`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+
+            showNotification('PDF export completed!', 'success');
+        }
+
+        function refreshData() {
+            // Simulate data refresh
+            showNotification('Data refreshed successfully!', 'info');
+
+            // Add loading animation
+            const refreshBtn = document.querySelector('.btn-outline-primary');
+            const originalText = refreshBtn.innerHTML;
+            refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Refreshing...';
+            refreshBtn.disabled = true;
+
+            setTimeout(() => {
+                refreshBtn.innerHTML = originalText;
+                refreshBtn.disabled = false;
+                renderStudents();
+                updateStatistics();
+            }, 1000);
+        }
+
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+            notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            notification.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+
+            document.body.appendChild(notification);
+
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 3000);
+        }
+
+        // Helper functions
+        function getStatusColor(status) {
+            switch (status) {
+                case 'active': return 'success';
+                case 'inactive': return 'danger';
+                case 'pending': return 'warning';
+                default: return 'secondary';
+            }
+        }
+
+        function getGPAColor(gpa) {
+            if (gpa >= 3.5) return 'success';
+            if (gpa >= 3.0) return 'info';
+            if (gpa >= 2.5) return 'warning';
+            return 'danger';
+        }
+
+        function getGPAColorHex(gpa) {
+            if (gpa >= 3.5) return '#27ae60';
+            if (gpa >= 3.0) return '#3498db';
+            if (gpa >= 2.5) return '#f39c12';
+            return '#e74c3c';
+        }
+
+        function getAttendanceColor(attendance) {
+            if (attendance >= 90) return 'success';
+            if (attendance >= 80) return 'info';
+            if (attendance >= 70) return 'warning';
+            return 'danger';
+        }
+
+        function getAttendanceStatus(attendance) {
+            if (attendance >= 90) return 'present';
+            if (attendance >= 70) return 'late';
+            return 'absent';
+        }
+
+        function getGradeColor(grade) {
+            if (grade.includes('A')) return 'success';
+            if (grade.includes('B')) return 'info';
+            if (grade.includes('C')) return 'warning';
+            return 'danger';
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // Additional utility functions
+        function calculateAge(dateOfBirth) {
+            const today = new Date();
+            const birthDate = new Date(dateOfBirth);
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            return age;
+        }
+
+        function generateStudentReport(studentId) {
+            const student = studentsData.find(s => s.id === studentId);
+            if (!student) return;
+
+            const report = {
+                student: student,
+                generatedDate: new Date().toISOString(),
+                academicPerformance: student.subjects || [],
+                attendanceRate: student.attendance,
+                overallGPA: student.gpa,
+                recommendations: generateRecommendations(student)
+            };
+
+            console.log('Student Report Generated:', report);
+            return report;
+        }
+
+        function generateRecommendations(student) {
+            const recommendations = [];
+
+            if (student.attendance < 80) {
+                recommendations.push('Improve attendance rate - consider meeting with parents');
+            }
+
+            if (student.gpa < 3.0) {
+                recommendations.push('Academic support needed - consider tutoring services');
+            }
+
+            if (student.subjects && student.subjects.length > 0) {
+                const lowPerformingSubjects = student.subjects.filter(s => s.percentage < 75);
+                if (lowPerformingSubjects.length > 0) {
+                    recommendations.push(`Focus on improving: ${lowPerformingSubjects.map(s => s.name).join(', ')}`);
+                }
+            }
+
+            if (student.gpa >= 3.5 && student.attendance >= 90) {
+                recommendations.push('Excellent performance - consider advanced placement opportunities');
+            }
+
+            return recommendations;
+        }
+
+        // Initialize tooltips and popovers if Bootstrap is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize Bootstrap tooltips
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', function (e) {
+                // Ctrl/Cmd + K to focus search
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    document.getElementById('searchStudent').focus();
+                }
+
+                // Escape to close modals
+                if (e.key === 'Escape') {
+                    const openModals = document.querySelectorAll('.modal.show');
+                    openModals.forEach(modal => {
+                        bootstrap.Modal.getInstance(modal)?.hide();
+                    });
+                }
+            });
+        });
+
+        // Handle responsive table on mobile
+        function handleResponsiveTable() {
+            const table = document.querySelector('.table-container table');
+            if (table && window.innerWidth < 768) {
+                table.classList.add('table-responsive');
+            }
+        }
+
+        window.addEventListener('resize', handleResponsiveTable);
+
+        // Auto-save form data to prevent data loss
+        let formAutoSaveInterval;
+
+        function startAutoSave() {
+            formAutoSaveInterval = setInterval(() => {
+                const form = document.getElementById('addStudentForm');
+                if (form) {
+                    const formData = new FormData(form);
+                    const data = {};
+                    formData.forEach((value, key) => {
+                        data[key] = value;
+                    });
+
+                    // Save to memory (in a real app, this would be localStorage or server)
+                    window.tempFormData = data;
+                }
+            }, 30000); // Save every 30 seconds
+        }
+
+        function stopAutoSave() {
+            if (formAutoSaveInterval) {
+                clearInterval(formAutoSaveInterval);
+            }
+        }
+
+        // Start auto-save when modal opens
+        document.getElementById('addStudentModal').addEventListener('shown.bs.modal', startAutoSave);
+        document.getElementById('addStudentModal').addEventListener('hidden.bs.modal', stopAutoSave);
+
+        // Performance optimization: Virtual scrolling for large datasets
+        function implementVirtualScrolling() {
+            if (filteredStudents.length > 100) {
+                itemsPerPage = 20; // Increase items per page for better performance
+            } else {
+                itemsPerPage = 12; // Default items per page
+            }
+        }
+
+        // Call performance optimization
+        document.addEventListener('DOMContentLoaded', implementVirtualScrolling);
+    </script>

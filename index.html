@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenwood Academy - Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+</head>
+
+<body>
+    <!-- Toggle Button -->
+    <button class="toggle-btn d-md-none" id="toggleBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="p-4">
+            <h4 class="text-center mb-4">
+                <i class="fas fa-graduation-cap me-2"></i>
+                Greenwood Academy
+            </h4>
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="./index.html">
+                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./student.html">
+                    <i class="fas fa-user-graduate me-2"></i> Students
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./teacher.html">
+                    <i class="fas fa-chalkboard-teacher me-2"></i> Teachers
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./classes.html">
+                    <i class="fas fa-book me-2"></i> Classes
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./finance.html">
+                    <i class="fas fa-dollar-sign me-2"></i> Finance
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./event.html">
+                    <i class="fas fa-calendar me-2"></i> Events
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./report.html">
+                    <i class="fas fa-chart-bar me-2"></i> Reports
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./setting.html">
+                    <i class="fas fa-cog me-2"></i> Settings
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Top Navigation -->
+        <nav class="top-navbar">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h2 class="mb-0 text-primary">Dashboard</h2>
+                        <small class="text-muted">Welcome back! Here's what's happening at Greenwood Academy</small>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <div class="d-flex align-items-center justify-content-end">
+                            <span class="me-3 text-muted" id="currentDateTime"></span>
+                            <button class="btn btn-outline-primary me-2" onclick="refreshDashboard()">
+                                <i class="fas fa-sync-alt me-1"></i>Refresh
+                            </button>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                    <i class="fas fa-user-circle me-1"></i>Admin
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#profile"><i
+                                                class="fas fa-user me-2"></i>Profile</a></li>
+                                    <li><a class="dropdown-item" href="#settings"><i
+                                                class="fas fa-cog me-2"></i>Settings</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="#logout"><i
+                                                class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <div class="container-fluid p-4">
+            <!-- Welcome Banner -->
+            <div class="welcome-banner fade-in">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h3 class="mb-2">Good Morning, Administrator! 🌟</h3>
+                        <p class="mb-0">Today is <span id="todayDate"></span>. You have <strong>5 pending tasks</strong>
+                            and <strong>12 new notifications</strong>.</p>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <i class="fas fa-school fa-4x opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Statistics -->
+            <div class="stats-grid fade-in">
+                <div class="stat-box primary">
+                    <div class="stat-icon">
+                        <i class="fas fa-users fa-2x" style="color: var(--primary-color);"></i>
+                    </div>
+                    <h2 class="mb-1">1,247</h2>
+                    <p class="text-muted mb-2">Total Students</p>
+                    <small class="text-success"><i class="fas fa-arrow-up"></i> +5.2% this month</small>
+                    <div class="progress mt-2" style="height: 4px;">
+                        <div class="progress-bar bg-primary" style="width: 78%"></div>
+                    </div>
+                </div>
+                <div class="stat-box success">
+                    <div class="stat-icon">
+                        <i class="fas fa-chalkboard-teacher fa-2x" style="color: var(--success-color);"></i>
+                    </div>
+                    <h2 class="mb-1">89</h2>
+                    <p class="text-muted mb-2">Active Teachers</p>
+                    <small class="text-success"><i class="fas fa-arrow-up"></i> +2.1% this month</small>
+                    <div class="progress mt-2" style="height: 4px;">
+                        <div class="progress-bar bg-success" style="width: 92%"></div>
+                    </div>
+                </div>
+                <div class="stat-box warning">
+                    <div class="stat-icon">
+                        <i class="fas fa-book fa-2x" style="color: var(--warning-color);"></i>
+                    </div>
+                    <h2 class="mb-1">156</h2>
+                    <p class="text-muted mb-2">Total Classes</p>
+                    <small class="text-warning"><i class="fas fa-minus"></i> No change</small>
+                    <div class="progress mt-2" style="height: 4px;">
+                        <div class="progress-bar bg-warning" style="width: 65%"></div>
+                    </div>
+                </div>
+                <div class="stat-box primary">
+                    <div class="stat-icon">
+                        <i class="fas fa-dollar-sign fa-2x" style="color: var(--secondary-color);"></i>
+                    </div>
+                    <h2 class="mb-1">$248K</h2>
+                    <p class="text-muted mb-2">Monthly Revenue</p>
+                    <small class="text-success"><i class="fas fa-arrow-up"></i> +8.7% this month</small>
+                    <div class="progress mt-2" style="height: 4px;">
+                        <div class="progress-bar bg-info" style="width: 88%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Left Column -->
+                <div class="col-lg-8">
+                    <!-- Attendance Overview -->
+                    <div class="content-card fade-in">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0">
+                                <i class="fas fa-chart-line me-2"></i>Attendance Overview
+                            </h5>
+                            <div class="btn-group btn-group-sm">
+                                <button class="btn btn-outline-primary active"
+                                    onclick="changeChartPeriod('week')">Week</button>
+                                <button class="btn btn-outline-primary"
+                                    onclick="changeChartPeriod('month')">Month</button>
+                                <button class="btn btn-outline-primary"
+                                    onclick="changeChartPeriod('year')">Year</button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <div class="chart-placeholder">
+                                <div class="text-center">
+                                    <i class="fas fa-chart-line fa-3x mb-3 text-muted"></i>
+                                    <p>Attendance Chart</p>
+                                    <small class="text-muted">Interactive chart showing attendance trends</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academic Performance -->
+                    <div class="content-card fade-in">
+                        <h5 class="mb-4">
+                            <i class="fas fa-graduation-cap me-2"></i>Academic Performance Overview
+                        </h5>
+                        <div class="performance-grid">
+                            <div class="performance-card">
+                                <div class="progress-circle excellent">92%</div>
+                                <h6>Excellent</h6>
+                                <p class="text-muted mb-0">342 Students</p>
+                            </div>
+                            <div class="performance-card">
+                                <div class="progress-circle good">78%</div>
+                                <h6>Good</h6>
+                                <p class="text-muted mb-0">567 Students</p>
+                            </div>
+                            <div class="performance-card">
+                                <div class="progress-circle average">65%</div>
+                                <h6>Average</h6>
+                                <p class="text-muted mb-0">284 Students</p>
+                            </div>
+                            <div class="performance-card">
+                                <div class="progress-circle"
+                                    style="background: linear-gradient(135deg, var(--danger-color), #e74c3c); color: white;">
+                                    43%</div>
+                                <h6>Needs Improvement</h6>
+                                <p class="text-muted mb-0">54 Students</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="content-card fade-in">
+                        <h5 class="mb-3">
+                            <i class="fas fa-clock me-2"></i>Recent Activity
+                        </h5>
+                        <div class="recent-activity" id="recentActivity">
+                            <!-- Activity items will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="col-lg-4">
+                    <!-- Quick Stats -->
+                    <div class="content-card fade-in">
+                        <h6 class="mb-3">
+                            <i class="fas fa-tachometer-alt me-2"></i>Today's Quick Stats
+                        </h6>
+                        <div class="quick-stats">
+                            <div class="quick-stat">
+                                <h4 class="text-success">96.5%</h4>
+                                <small class="text-muted">Attendance Rate</small>
+                            </div>
+                            <div class="quick-stat">
+                                <h4 class="text-primary">23</h4>
+                                <small class="text-muted">New Admissions</small>
+                            </div>
+                            <div class="quick-stat">
+                                <h4 class="text-warning">12</h4>
+                                <small class="text-muted">Pending Fees</small>
+                            </div>
+                            <div class="quick-stat">
+                                <h4 class="text-info">8</h4>
+                                <small class="text-muted">Events Today</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="notification-panel fade-in">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="mb-0">
+                                <i class="fas fa-bell me-2"></i>Recent Notifications
+                            </h6>
+                            <button class="btn btn-sm btn-outline-primary" onclick="markAllAsRead()">
+                                Mark all as read
+                            </button>
+                        </div>
+                        <div id="notificationsList">
+                            <!-- Notifications will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Events -->
+                    <div class="content-card fade-in">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="mb-0">
+                                <i class="fas fa-calendar-alt me-2"></i>Upcoming Events
+                            </h6>
+                            <a href="#events" class="btn btn-sm btn-outline-primary">View All</a>
+                        </div>
+                        <div class="upcoming-events" id="upcomingEvents">
+                            <!-- Events will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Financial Summary -->
+                    <div class="content-card fade-in">
+                        <h6 class="mb-3">
+                            <i class="fas fa-money-bill-wave me-2"></i>Financial Summary
+                        </h6>
+                        <div class="row text-center">
+                            <div class="col-6 mb-3">
+                                <h4 class="text-success">$186K</h4>
+                                <small class="text-muted">Collected</small>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <h4 class="text-warning">$62K</h4>
+                                <small class="text-muted">Pending</small>
+                            </div>
+                        </div>
+                        <div class="progress mb-2" style="height: 8px;">
+                            <div class="progress-bar bg-success" style="width: 75%"></div>
+                        </div>
+                        <small class="text-muted">75% collection rate this month</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sample data
+        const recentActivities = [
+            { icon: 'user-plus', type: 'success', title: 'New student enrollment', description: 'Sarah Johnson enrolled in Grade 5', time: '2 minutes ago' },
+            { icon: 'graduation-cap', type: 'primary', title: 'Class completed', description: 'Mathematics Grade 6 class completed', time: '15 minutes ago' },
+            { icon: 'exclamation-triangle', type: 'warning', title: 'Fee reminder sent', description: 'Payment reminders sent to 23 parents', time: '1 hour ago' },
+            { icon: 'calendar-check', type: 'success', title: 'Event scheduled', description: 'Annual Sports Day scheduled for next month', time: '2 hours ago' },
+            { icon: 'user-times', type: 'danger', title: 'Student absent', description: 'Mark Thompson marked absent today', time: '3 hours ago' },
+            { icon: 'book', type: 'primary', title: 'Assignment submitted', description: '45 students submitted Science assignment', time: '4 hours ago' }
+        ];
+
+        const notifications = [
+            { id: 1, type: 'new', title: 'New admission application', description: 'Emma Wilson applied for Grade 3', time: '5 minutes ago' },
+            { id: 2, type: 'new', title: 'Parent meeting request', description: 'Mr. Davis requested a meeting', time: '1 hour ago' },
+            { id: 3, type: 'read', title: 'System maintenance scheduled', description: 'Scheduled for this weekend', time: '2 hours ago' },
+            { id: 4, type: 'new', title: 'Fee payment received', description: '$2,500 received from multiple parents', time: '3 hours ago' },
+            { id: 5, type: 'read', title: 'Teacher evaluation completed', description: 'Q2 evaluations are ready', time: '1 day ago' }
+        ];
+
+    </script>
