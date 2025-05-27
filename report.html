@@ -8,16 +8,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
- <link rel="stylesheet" href="./assets/css/report.css">
+    <link rel="stylesheet" href="./assets/css/report.css">
 
 </head>
 
 <body>
-    <!-- Toggle Button -->
-    <button class="toggle-btn d-md-none" id="toggleBtn">
-        <i class="fas fa-bars"></i>
-    </button>
-
     <!-- Sidebar -->
     <nav class="sidebar" id="sidebar">
         <div class="p-4">
@@ -28,7 +23,7 @@
         </div>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" href="./index.html">
+                <a class="nav-link" href="./index.html">
                     <i class="fas fa-tachometer-alt me-2"></i> Dashboard
                 </a>
             </li>
@@ -58,7 +53,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./report.html">
+                <a class="nav-link active" href="./report.html">
                     <i class="fas fa-chart-bar me-2"></i> Reports
                 </a>
             </li>
@@ -74,121 +69,136 @@
     <div class="main-content" id="mainContent">
         <!-- Top Navigation -->
         <nav class="top-navbar">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-md-6">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <button class="toggle-btn d-md-none" id="toggleBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div>
                         <h2 class="mb-0 text-primary">Reports & Analytics</h2>
                         <small class="text-muted">Comprehensive school performance insights and reports</small>
                     </div>
-                    <div class="col-md-6 text-end">
-                        <div class="d-flex align-items-center justify-content-end">
-                            <button class="btn btn-outline-primary me-2" onclick="refreshReports()">
-                                <i class="fas fa-sync-alt me-1"></i>Refresh
-                            </button>
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#generateReportModal">
-                                <i class="fas fa-chart-line me-1"></i>Generate Report
-                            </button>
-                        </div>
-                    </div>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-primary" onclick="refreshReports()">
+                        <i class="fas fa-sync-alt me-1"></i>Refresh
+                    </button>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#generateReportModal">
+                        <i class="fas fa-chart-line me-1"></i>Generate Report
+                    </button>
                 </div>
             </div>
         </nav>
 
-        <!-- Dashboard Content -->
+        <!-- Content Area -->
         <div class="container-fluid p-4">
-            <!-- Quick Overview Statistics -->
+            <!-- Statistics Overview -->
             <div class="stats-grid">
-                <div class="stat-box primary">
-                    <i class="fas fa-chart-line fa-2x mb-2" style="color: var(--primary-color);"></i>
-                    <h3 class="mb-1">87.5%</h3>
-                    <p class="text-muted mb-0">Overall Performance</p>
-                    <small class="text-success"><i class="fas fa-arrow-up"></i> +3.2%</small>
+                <div class="stat-card">
+                    <div class="stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i> +3.2%
+                    </div>
+                    <div class="stat-icon" style="background: var(--primary-color);">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-number">87.5%</div>
+                    <div class="stat-label">Overall Performance</div>
                 </div>
-                <div class="stat-box success">
-                    <i class="fas fa-users fa-2x mb-2" style="color: var(--success-color);"></i>
-                    <h3 class="mb-1">94.2%</h3>
-                    <p class="text-muted mb-0">Attendance Rate</p>
-                    <small class="text-success"><i class="fas fa-arrow-up"></i> +1.8%</small>
+
+                <div class="stat-card success">
+                    <div class="stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i> +1.8%
+                    </div>
+                    <div class="stat-icon" style="background: var(--success-color);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number">94.2%</div>
+                    <div class="stat-label">Attendance Rate</div>
                 </div>
-                <div class="stat-box warning">
-                    <i class="fas fa-graduation-cap fa-2x mb-2" style="color: var(--warning-color);"></i>
-                    <h3 class="mb-1">76.8%</h3>
-                    <p class="text-muted mb-0">Pass Rate</p>
-                    <small class="text-warning"><i class="fas fa-minus"></i> -0.5%</small>
+
+                <div class="stat-card warning">
+                    <div class="stat-trend trend-down">
+                        <i class="fas fa-arrow-down"></i> -0.5%
+                    </div>
+                    <div class="stat-icon" style="background: var(--warning-color);">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="stat-number">76.8%</div>
+                    <div class="stat-label">Pass Rate</div>
                 </div>
-                <div class="stat-box danger">
-                    <i class="fas fa-exclamation-triangle fa-2x mb-2" style="color: var(--danger-color);"></i>
-                    <h3 class="mb-1">12</h3>
-                    <p class="text-muted mb-0">At-Risk Students</p>
-                    <small class="text-danger"><i class="fas fa-arrow-down"></i> Action needed</small>
+
+                <div class="stat-card danger">
+                    <div class="stat-trend trend-down">
+                        <i class="fas fa-exclamation-triangle"></i> Alert
+                    </div>
+                    <div class="stat-icon" style="background: var(--danger-color);">
+                        <i class="fas fa-user-clock"></i>
+                    </div>
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">At-Risk Students</div>
                 </div>
             </div>
 
             <!-- Report Categories -->
             <div class="content-card">
-                <h5 class="mb-4">
-                    <i class="fas fa-folder-open me-2"></i>Report Categories
-                </h5>
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <div class="report-card" onclick="loadReport('academic')">
-                            <div class="report-icon" style="background: var(--primary-color);">
-                                <i class="fas fa-book-open"></i>
-                            </div>
-                            <h6 class="fw-bold">Academic Performance</h6>
-                            <p class="text-muted mb-2">Grade distribution, subject-wise performance, and academic trends</p>
-                            <small class="text-primary">23 reports available</small>
+                <h5 class="mb-4"><i class="fas fa-folder-open me-2"></i>Report Categories</h5>
+                <div class="report-categories">
+                    <div class="report-category" onclick="loadReportCategory('academic')">
+                        <div class="category-icon" style="background: var(--primary-color);">
+                            <i class="fas fa-book-open"></i>
                         </div>
+                        <div class="category-title">Academic Performance</div>
+                        <div class="category-description">Grade distribution, subject-wise performance, and academic
+                            trends</div>
+                        <div class="category-count text-primary">23 reports available</div>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <div class="report-card" onclick="loadReport('attendance')">
-                            <div class="report-icon" style="background: var(--success-color);">
-                                <i class="fas fa-calendar-check"></i>
-                            </div>
-                            <h6 class="fw-bold">Attendance Reports</h6>
-                            <p class="text-muted mb-2">Daily, weekly, monthly attendance tracking and analysis</p>
-                            <small class="text-success">18 reports available</small>
+
+                    <div class="report-category" onclick="loadReportCategory('attendance')">
+                        <div class="category-icon" style="background: var(--success-color);">
+                            <i class="fas fa-calendar-check"></i>
                         </div>
+                        <div class="category-title">Attendance Reports</div>
+                        <div class="category-description">Daily, weekly, monthly attendance tracking and analysis</div>
+                        <div class="category-count text-success">18 reports available</div>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <div class="report-card" onclick="loadReport('financial')">
-                            <div class="report-icon" style="background: var(--warning-color);">
-                                <i class="fas fa-dollar-sign"></i>
-                            </div>
-                            <h6 class="fw-bold">Financial Reports</h6>
-                            <p class="text-muted mb-2">Fee collection, outstanding payments, and financial overview</p>
-                            <small class="text-warning">15 reports available</small>
+
+                    <div class="report-category" onclick="loadReportCategory('financial')">
+                        <div class="category-icon" style="background: var(--warning-color);">
+                            <i class="fas fa-dollar-sign"></i>
                         </div>
+                        <div class="category-title">Financial Reports</div>
+                        <div class="category-description">Fee collection, outstanding payments, and financial overview
+                        </div>
+                        <div class="category-count text-warning">15 reports available</div>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <div class="report-card" onclick="loadReport('teacher')">
-                            <div class="report-icon" style="background: var(--secondary-color);">
-                                <i class="fas fa-chalkboard-teacher"></i>
-                            </div>
-                            <h6 class="fw-bold">Teacher Reports</h6>
-                            <p class="text-muted mb-2">Teacher performance, workload distribution, and evaluations</p>
-                            <small class="text-info">12 reports available</small>
+
+                    <div class="report-category" onclick="loadReportCategory('teacher')">
+                        <div class="category-icon" style="background: var(--secondary-color);">
+                            <i class="fas fa-chalkboard-teacher"></i>
                         </div>
+                        <div class="category-title">Teacher Reports</div>
+                        <div class="category-description">Teacher performance, workload distribution, and evaluations
+                        </div>
+                        <div class="category-count text-info">12 reports available</div>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <div class="report-card" onclick="loadReport('discipline')">
-                            <div class="report-icon" style="background: var(--danger-color);">
-                                <i class="fas fa-exclamation-circle"></i>
-                            </div>
-                            <h6 class="fw-bold">Discipline Reports</h6>
-                            <p class="text-muted mb-2">Behavioral incidents, disciplinary actions, and trends</p>
-                            <small class="text-danger">8 reports available</small>
+
+                    <div class="report-category" onclick="loadReportCategory('discipline')">
+                        <div class="category-icon" style="background: var(--danger-color);">
+                            <i class="fas fa-exclamation-circle"></i>
                         </div>
+                        <div class="category-title">Discipline Reports</div>
+                        <div class="category-description">Behavioral incidents, disciplinary actions, and trends</div>
+                        <div class="category-count text-danger">8 reports available</div>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <div class="report-card" onclick="loadReport('enrollment')">
-                            <div class="report-icon" style="background: #9b59b6;">
-                                <i class="fas fa-user-plus"></i>
-                            </div>
-                            <h6 class="fw-bold">Enrollment Reports</h6>
-                            <p class="text-muted mb-2">Admission trends, enrollment statistics, and demographics</p>
-                            <small style="color: #9b59b6;">10 reports available</small>
+
+                    <div class="report-category" onclick="loadReportCategory('enrollment')">
+                        <div class="category-icon" style="background: #9b59b6;">
+                            <i class="fas fa-user-plus"></i>
                         </div>
+                        <div class="category-title">Enrollment Reports</div>
+                        <div class="category-description">Admission trends, enrollment statistics, and demographics
+                        </div>
+                        <div class="category-count" style="color: #9b59b6;">10 reports available</div>
                     </div>
                 </div>
             </div>
@@ -196,10 +206,8 @@
             <!-- Performance Dashboard -->
             <div class="content-card">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h5 class="mb-0">
-                        <i class="fas fa-chart-area me-2"></i>Performance Dashboard
-                    </h5>
-                    <div class="export-buttons">
+                    <h5 class="mb-0"><i class="fas fa-chart-area me-2"></i>Performance Dashboard</h5>
+                    <div class="d-flex gap-2">
                         <button class="btn btn-outline-primary btn-sm" onclick="exportChart('png')">
                             <i class="fas fa-image me-1"></i>PNG
                         </button>
@@ -209,9 +217,9 @@
                     </div>
                 </div>
 
-                <!-- Filter Section -->
+                <!-- Filters -->
                 <div class="filter-section">
-                    <div class="row">
+                    <div class="row g-3">
                         <div class="col-md-3">
                             <select class="form-select" id="timeRange">
                                 <option value="month">This Month</option>
@@ -248,7 +256,7 @@
                     </div>
                 </div>
 
-                <!-- Charts Grid -->
+                <!-- Charts -->
                 <div class="row">
                     <div class="col-md-6">
                         <div class="chart-container">
@@ -266,15 +274,13 @@
             <!-- Recent Reports -->
             <div class="content-card">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h5 class="mb-0">
-                        <i class="fas fa-history me-2"></i>Recent Reports
-                    </h5>
+                    <h5 class="mb-0"><i class="fas fa-history me-2"></i>Recent Reports</h5>
                     <button class="btn btn-outline-primary" onclick="viewAllReports()">
                         <i class="fas fa-list me-1"></i>View All
                     </button>
                 </div>
                 <div class="table-container">
-                    <table class="table table-hover mb-0">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>Report Name</th>
@@ -340,80 +346,343 @@
                                     </button>
                                 </td>
                             </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Quick Statistics -->
+            <div class="content-card">
+                <h5 class="mb-4"><i class="fas fa-tachometer-alt me-2"></i>Quick Statistics</h5>
+                <div class="row text-center">
+                    <div class="col-md-3">
+                        <div class="progress-ring">
+                            <svg width="80" height="80">
+                                <circle cx="40" cy="40" r="30" stroke="#e9ecef" stroke-width="8" fill="transparent" />
+                                <circle cx="40" cy="40" r="30" stroke="#27ae60" stroke-width="8" fill="transparent"
+                                    stroke-dasharray="188.4" stroke-dashoffset="37.68" stroke-linecap="round" />
+                            </svg>
+                            <div class="progress-ring-value">80%</div>
+                        </div>
+                        <small class="text-muted">Avg. Grade</small>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="progress-ring">
+                            <svg width="80" height="80">
+                                <circle cx="40" cy="40" r="30" stroke="#e9ecef" stroke-width="8" fill="transparent" />
+                                <circle cx="40" cy="40" r="30" stroke="#3498db" stroke-width="8" fill="transparent"
+                                    stroke-dasharray="188.4" stroke-dashoffset="18.84" stroke-linecap="round" />
+                            </svg>
+                            <div class="progress-ring-value">90%</div>
+                        </div>
+                        <small class="text-muted">Attendance</small>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="progress-ring">
+                            <svg width="80" height="80">
+                                <circle cx="40" cy="40" r="30" stroke="#e9ecef" stroke-width="8" fill="transparent" />
+                                <circle cx="40" cy="40" r="30" stroke="#f39c12" stroke-width="8" fill="transparent"
+                                    stroke-dasharray="188.4" stroke-dashoffset="56.52" stroke-linecap="round" />
+                            </svg>
+                            <div class="progress-ring-value">70%</div>
+                        </div>
+                        <small class="text-muted">Satisfaction</small>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="progress-ring">
+                            <svg width="80" height="80">
+                                <circle cx="40" cy="40" r="30" stroke="#e9ecef" stroke-width="8" fill="transparent" />
+                                <circle cx="40" cy="40" r="30" stroke="#e74c3c" stroke-width="8" fill="transparent"
+                                    stroke-dasharray="188.4" stroke-dashoffset="75.36" stroke-linecap="round" />
+                            </svg>
+                            <div class="progress-ring-value">60%</div>
+                        </div>
+                        <small class="text-muted">Task Completion</small>
+                    </div </div>
+                </div>
+            </div>
+
+            <!-- Detailed Analytics -->
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="content-card">
+                        <h5 class="mb-4"><i class="fas fa-chart-pie me-2"></i>Grade Distribution</h5>
+                        <div class="chart-container">
+                            <canvas id="gradeDistributionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="content-card">
+                        <h5 class="mb-4"><i class="fas fa-trophy me-2"></i>Top Performers</h5>
+                        <div class="top-performers-list">
+                            <div class="performer-item d-flex align-items-center mb-3">
+                                <div class="performer-rank">1</div>
+                                <div class="performer-avatar">
+                                    <img src="https://via.placeholder.com/40" alt="Student" class="rounded-circle">
+                                </div>
+                                <div class="performer-info">
+                                    <div class="performer-name">Emma Johnson</div>
+                                    <small class="text-muted">Grade 6 - 95.5%</small>
+                                </div>
+                                <div class="performer-badge">
+                                    <span class="badge bg-warning">Gold</span>
+                                </div>
+                            </div>
+                            <div class="performer-item d-flex align-items-center mb-3">
+                                <div class="performer-rank">2</div>
+                                <div class="performer-avatar">
+                                    <img src="https://via.placeholder.com/40" alt="Student" class="rounded-circle">
+                                </div>
+                                <div class="performer-info">
+                                    <div class="performer-name">Michael Chen</div>
+                                    <small class="text-muted">Grade 5 - 92.8%</small>
+                                </div>
+                                <div class="performer-badge">
+                                    <span class="badge bg-secondary">Silver</span>
+                                </div>
+                            </div>
+                            <div class="performer-item d-flex align-items-center mb-3">
+                                <div class="performer-rank">3</div>
+                                <div class="performer-avatar">
+                                    <img src="https://via.placeholder.com/40" alt="Student" class="rounded-circle">
+                                </div>
+                                <div class="performer-info">
+                                    <div class="performer-name">Sophia Davis</div>
+                                    <small class="text-muted">Grade 4 - 90.2%</small>
+                                </div>
+                                <div class="performer-badge">
+                                    <span class="badge bg-warning text-dark">Bronze</span>
+                                </div>
+                            </div>
+                            <div class="performer-item d-flex align-items-center mb-3">
+                                <div class="performer-rank">4</div>
+                                <div class="performer-avatar">
+                                    <img src="https://via.placeholder.com/40" alt="Student" class="rounded-circle">
+                                </div>
+                                <div class="performer-info">
+                                    <div class="performer-name">James Wilson</div>
+                                    <small class="text-muted">Grade 6 - 88.7%</small>
+                                </div>
+                            </div>
+                            <div class="performer-item d-flex align-items-center mb-3">
+                                <div class="performer-rank">5</div>
+                                <div class="performer-avatar">
+                                    <img src="https://via.placeholder.com/40" alt="Student" class="rounded-circle">
+                                </div>
+                                <div class="performer-info">
+                                    <div class="performer-name">Olivia Brown</div>
+                                    <small class="text-muted">Grade 3 - 87.3%</small>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm w-100 mt-3">
+                            <i class="fas fa-list me-1"></i>View All Performers
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject-wise Performance -->
+            <div class="content-card">
+                <h5 class="mb-4"><i class="fas fa-books me-2"></i>Subject-wise Performance Analysis</h5>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="chart-container">
+                            <canvas id="subjectPerformanceChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="subject-summary">
+                            <div class="subject-item mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="fw-bold">Mathematics</span>
+                                    <span class="badge bg-success">85.2%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" style="width: 85.2%"></div>
+                                </div>
+                                <small class="text-muted">+2.3% from last month</small>
+                            </div>
+                            <div class="subject-item mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="fw-bold">English</span>
+                                    <span class="badge bg-primary">78.9%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-primary" style="width: 78.9%"></div>
+                                </div>
+                                <small class="text-muted">-1.2% from last month</small>
+                            </div>
+                            <div class="subject-item mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="fw-bold">Science</span>
+                                    <span class="badge bg-info">82.4%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-info" style="width: 82.4%"></div>
+                                </div>
+                                <small class="text-muted">+0.8% from last month</small>
+                            </div>
+                            <div class="subject-item mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="fw-bold">Social Studies</span>
+                                    <span class="badge bg-warning">74.6%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" style="width: 74.6%"></div>
+                                </div>
+                                <small class="text-muted">-3.1% from last month</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Monthly Trends -->
+            <div class="content-card">
+                <h5 class="mb-4"><i class="fas fa-calendar-alt me-2"></i>Monthly Performance Trends</h5>
+                <div class="chart-container">
+                    <canvas id="monthlyTrendsChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Class-wise Comparison -->
+            <div class="content-card">
+                <h5 class="mb-4"><i class="fas fa-layer-group me-2"></i>Class-wise Performance Comparison</h5>
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <td>
-                                    <strong>Teacher Performance Review</strong>
-                                    <br><small class="text-muted">Quarterly Evaluation Report</small>
-                                </td>
-                                <td><span class="badge bg-info">Teacher</span></td>
-                                <td>Principal Johnson</td>
-                                <td>2025-05-22</td>
-                                <td><span class="badge bg-success">Complete</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-outline-primary" onclick="viewReport(4)">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-success" onclick="downloadReport(4)">
-                                        <i class="fas fa-download"></i>
-                                    </button>
-                                </td>
+                                <th>Class</th>
+                                <th>Students</th>
+                                <th>Average Score</th>
+                                <th>Attendance</th>
+                                <th>Pass Rate</th>
+                                <th>Rank</th>
+                                <th>Trend</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Grade 6A</strong></td>
+                                <td>28</td>
+                                <td><span class="badge bg-success">87.5%</span></td>
+                                <td>95.2%</td>
+                                <td>89.3%</td>
+                                <td>1st</td>
+                                <td><i class="fas fa-arrow-up text-success"></i> +2.1%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Grade 5B</strong></td>
+                                <td>25</td>
+                                <td><span class="badge bg-success">85.8%</span></td>
+                                <td>93.6%</td>
+                                <td>84.0%</td>
+                                <td>2nd</td>
+                                <td><i class="fas fa-arrow-up text-success"></i> +1.3%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Grade 4A</strong></td>
+                                <td>30</td>
+                                <td><span class="badge bg-primary">82.3%</span></td>
+                                <td>91.8%</td>
+                                <td>80.0%</td>
+                                <td>3rd</td>
+                                <td><i class="fas fa-arrow-up text-success"></i> +0.7%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Grade 3B</strong></td>
+                                <td>27</td>
+                                <td><span class="badge bg-primary">79.1%</span></td>
+                                <td>89.3%</td>
+                                <td>77.8%</td>
+                                <td>4th</td>
+                                <td><i class="fas fa-minus text-muted"></i> 0%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Grade 2A</strong></td>
+                                <td>24</td>
+                                <td><span class="badge bg-warning">76.4%</span></td>
+                                <td>87.5%</td>
+                                <td>75.0%</td>
+                                <td>5th</td>
+                                <td><i class="fas fa-arrow-down text-danger"></i> -1.2%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Grade 1A</strong></td>
+                                <td>22</td>
+                                <td><span class="badge bg-warning">74.2%</span></td>
+                                <td>85.9%</td>
+                                <td>72.7%</td>
+                                <td>6th</td>
+                                <td><i class="fas fa-arrow-down text-danger"></i> -0.8%</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- Quick Stats -->
+            <!-- Report Schedule -->
             <div class="content-card">
-                <h5 class="mb-4">
-                    <i class="fas fa-tachometer-alt me-2"></i>Quick Statistics
-                </h5>
-                <div class="quick-stats">
-                    <div class="quick-stat">
-                        <div class="progress-ring">
-                            <svg width="80" height="80">
-                                <circle cx="40" cy="40" r="30" stroke="#e9ecef" stroke-width="8"/>
-                                <circle cx="40" cy="40" r="30" stroke="#27ae60" stroke-width="8" 
-                                        stroke-dasharray="188.4" stroke-dashoffset="37.68"/>
-                            </svg>
-                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold;">80%</div>
+                <h5 class="mb-4"><i class="fas fa-clock me-2"></i>Scheduled Reports</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="schedule-item d-flex align-items-center p-3 border rounded mb-3">
+                            <div class="schedule-icon me-3">
+                                <i class="fas fa-calendar-week text-primary"></i>
+                            </div>
+                            <div class="schedule-info flex-grow-1">
+                                <div class="fw-bold">Weekly Attendance Report</div>
+                                <small class="text-muted">Every Monday at 9:00 AM</small>
+                            </div>
+                            <div class="schedule-status">
+                                <span class="badge bg-success">Active</span>
+                            </div>
                         </div>
-                        <small class="text-muted">Avg. Grade</small>
+                        <div class="schedule-item d-flex align-items-center p-3 border rounded mb-3">
+                            <div class="schedule-icon me-3">
+                                <i class="fas fa-calendar-alt text-warning"></i>
+                            </div>
+                            <div class="schedule-info flex-grow-1">
+                                <div class="fw-bold">Monthly Performance Summary</div>
+                                <small class="text-muted">1st of every month at 8:00 AM</small>
+                            </div>
+                            <div class="schedule-status">
+                                <span class="badge bg-success">Active</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="quick-stat">
-                        <div class="progress-ring">
-                            <svg width="80" height="80">
-                                <circle cx="40" cy="40" r="30" stroke="#e9ecef" stroke-width="8"/>
-                                <circle cx="40" cy="40" r="30" stroke="#3498db" stroke-width="8" 
-                                        stroke-dasharray="188.4" stroke-dashoffset="18.84"/>
-                            </svg>
-                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold;">90%</div>
+                    <div class="col-md-6">
+                        <div class="schedule-item d-flex align-items-center p-3 border rounded mb-3">
+                            <div class="schedule-icon me-3">
+                                <i class="fas fa-dollar-sign text-success"></i>
+                            </div>
+                            <div class="schedule-info flex-grow-1">
+                                <div class="fw-bold">Financial Status Report</div>
+                                <small class="text-muted">Every Friday at 5:00 PM</small>
+                            </div>
+                            <div class="schedule-status">
+                                <span class="badge bg-warning">Paused</span>
+                            </div>
                         </div>
-                        <small class="text-muted">Attendance</small>
-                    </div>
-                    <div class="quick-stat">
-                        <div class="progress-ring">
-                            <svg width="80" height="80">
-                                <circle cx="40" cy="40" r="30" stroke="#e9ecef" stroke-width="8"/>
-                                <circle cx="40" cy="40" r="30" stroke="#f39c12" stroke-width="8" 
-                                        stroke-dasharray="188.4" stroke-dashoffset="56.52"/>
-                            </svg>
-                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold;">70%</div>
+                        <div class="schedule-item d-flex align-items-center p-3 border rounded mb-3">
+                            <div class="schedule-icon me-3">
+                                <i class="fas fa-graduation-cap text-info"></i>
+                            </div>
+                            <div class="schedule-info flex-grow-1">
+                                <div class="fw-bold">Quarterly Academic Analysis</div>
+                                <small class="text-muted">End of every quarter</small>
+                            </div>
+                            <div class="schedule-status">
+                                <span class="badge bg-success">Active</span>
+                            </div>
                         </div>
-                        <small class="text-muted">Satisfaction</small>
-                    </div>
-                    <div class="quick-stat">
-                        <div class="progress-ring">
-                            <svg width="80" height="80">
-                                <circle cx="40" cy="40" r="30" stroke="#e9ecef" stroke-width="8"/>
-                                <circle cx="40" cy="40" r="30" stroke="#e74c3c" stroke-width="8" 
-                                        stroke-dasharray="188.4" stroke-dashoffset="75.36"/>
-                            </svg>
-                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold;">60%</div>
-                        </div>
-                        <small class="text-muted">Completion</small>
                     </div>
                 </div>
+                <button class="btn btn-primary">
+                    <i class="fas fa-plus me-1"></i>Add New Schedule
+                </button>
             </div>
         </div>
     </div>
@@ -423,54 +692,46 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">
-                        <i class="fas fa-chart-line me-2"></i>Generate Custom Report
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    <h5 class="modal-title"><i class="fas fa-chart-line me-2"></i>Generate New Report</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <form id="generateReportForm">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="reportTitle" required>
-                                    <label for="reportTitle">Report Title</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="reportType" required>
+                                <div class="mb-3">
+                                    <label class="form-label">Report Type</label>
+                                    <select class="form-select" required>
                                         <option value="">Select Report Type</option>
                                         <option value="academic">Academic Performance</option>
                                         <option value="attendance">Attendance Report</option>
                                         <option value="financial">Financial Report</option>
-                                        <option value="teacher">Teacher Report</option>
+                                        <option value="teacher">Teacher Performance</option>
                                         <option value="discipline">Discipline Report</option>
-                                        <option value="enrollment">Enrollment Report</option>
                                         <option value="custom">Custom Report</option>
                                     </select>
-                                    <label for="reportType">Report Type</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Time Period</label>
+                                    <select class="form-select" required>
+                                        <option value="">Select Period</option>
+                                        <option value="week">This Week</option>
+                                        <option value="month">This Month</option>
+                                        <option value="quarter">This Quarter</option>
+                                        <option value="semester">This Semester</option>
+                                        <option value="year">This Year</option>
+                                        <option value="custom">Custom Range</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="date" class="form-control" id="dateFrom" required>
-                                    <label for="dateFrom">From Date</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="date" class="form-control" id="dateTo" required>
-                                    <label for="dateTo">To Date</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="reportGrade">
+                                <div class="mb-3">
+                                    <label class="form-label">Grade/Class</label>
+                                    <select class="form-select">
                                         <option value="">All Grades</option>
                                         <option value="1">Grade 1</option>
                                         <option value="2">Grade 2</option>
@@ -479,77 +740,62 @@
                                         <option value="5">Grade 5</option>
                                         <option value="6">Grade 6</option>
                                     </select>
-                                    <label for="reportGrade">Grade Level</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="reportFormat">
-                                        <option value="pdf">PDF Report</option>
+                                <div class="mb-3">
+                                    <label class="form-label">Output Format</label>
+                                    <select class="form-select" required>
+                                        <option value="pdf">PDF Document</option>
                                         <option value="excel">Excel Spreadsheet</option>
-                                        <option value="csv">CSV Data</option>
-                                        <option value="online">Online View</option>
+                                        <option value="csv">CSV File</option>
+                                        <option value="html">HTML Report</option>
                                     </select>
-                                    <label for="reportFormat">Output Format</label>
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Include Sections:</label>
+                            <label class="form-label">Include Sections</label>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="includeCharts" checked>
-                                        <label class="form-check-label" for="includeCharts">
-                                            Charts & Graphs
-                                        </label>
+                                        <input class="form-check-input" type="checkbox" checked>
+                                        <label class="form-check-label">Summary Statistics</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="includeStats" checked>
-                                        <label class="form-check-label" for="includeStats">
-                                            Statistical Analysis
-                                        </label>
+                                        <input class="form-check-input" type="checkbox" checked>
+                                        <label class="form-check-label">Charts & Graphs</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="includeComparisons">
-                                        <label class="form-check-label" for="includeComparisons">
-                                            Period Comparisons
-                                        </label>
+                                        <input class="form-check-input" type="checkbox">
+                                        <label class="form-check-label">Individual Records</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="includeRecommendations">
-                                        <label class="form-check-label" for="includeRecommendations">
-                                            Recommendations
-                                        </label>
+                                        <input class="form-check-input" type="checkbox" checked>
+                                        <label class="form-check-label">Comparative Analysis</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="includeDetails" checked>
-                                        <label class="form-check-label" for="includeDetails">
-                                            Detailed Breakdown
-                                        </label>
+                                        <input class="form-check-input" type="checkbox">
+                                        <label class="form-check-label">Recommendations</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="includeSummary" checked>
-                                        <label class="form-check-label" for="includeSummary">
-                                            Executive Summary
-                                        </label>
+                                        <input class="form-check-input" type="checkbox">
+                                        <label class="form-check-label">Historical Trends</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-floating mb-3">
-                            <textarea class="form-control" id="reportDescription" style="height: 100px"></textarea>
-                            <label for="reportDescription">Additional Notes/Requirements</label>
+                        <div class="mb-3">
+                            <label class="form-label">Additional Notes</label>
+                            <textarea class="form-control" rows="3"
+                                placeholder="Add any specific requirements or notes..."></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-outline-primary" onclick="previewReport()">
-                        <i class="fas fa-eye me-1"></i>Preview
-                    </button>
                     <button type="button" class="btn btn-primary" onclick="generateReport()">
                         <i class="fas fa-cog me-1"></i>Generate Report
                     </button>
@@ -558,621 +804,10 @@
         </div>
     </div>
 
-    <!-- Report Details Modal -->
-    <div class="modal fade" id="reportDetailsModal" tabindex="-1">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        <i class="fas fa-file-alt me-2"></i>Report Details
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="reportDetailsContent">
-                        <!-- Content will be populated by JavaScript -->
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" onclick="downloadCurrentReport()">
-                        <i class="fas fa-download me-1"></i>Download
-                    </button>
-                    <button type="button" class="btn btn-primary" onclick="shareReport()">
-                        <i class="fas fa-share me-1"></i>Share
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Global variables
-        let currentReportData = null;
-        let performanceChart = null;
-        let attendanceChart = null;
+    <script src="./assets/js/report.js"></script>
 
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeSidebar();
-            initializeCharts();
-            loadRecentReports();
-            setDefaultDates();
-        });
+</body>
 
-        // Sidebar functionality
-        function initializeSidebar() {
-            const toggleBtn = document.getElementById('toggleBtn');
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('mainContent');
-
-            if (toggleBtn) {
-                toggleBtn.addEventListener('click', function() {
-                    sidebar.classList.toggle('active');
-                    mainContent.classList.toggle('shifted');
-                    toggleBtn.classList.toggle('shifted');
-                });
-            }
-
-            // Auto-show sidebar on desktop
-            if (window.innerWidth >= 768) {
-                sidebar.classList.add('active');
-                mainContent.classList.add('shifted');
-            }
-        }
-
-        // Initialize charts
-        function initializeCharts() {
-            // Performance Chart
-            const performanceCtx = document.getElementById('performanceChart').getContext('2d');
-            performanceChart = new Chart(performanceCtx, {
-                type: 'line',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-                    datasets: [{
-                        label: 'Average Performance',
-                        data: [78, 82, 85, 87, 89],
-                        borderColor: '#3498db',
-                        backgroundColor: 'rgba(52, 152, 219, 0.1)',
-                        borderWidth: 3,
-                        fill: true,
-                        tension: 0.4
-                    }, {
-                        label: 'Attendance Rate',
-                        data: [92, 94, 91, 96, 94],
-                        borderColor: '#27ae60',
-                        backgroundColor: 'rgba(39, 174, 96, 0.1)',
-                        borderWidth: 3,
-                        fill: true,
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Academic Performance Trends'
-                        },
-                        legend: {
-                            position: 'top'
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 100
-                        }
-                    }
-                }
-            });
-
-            // Attendance Chart
-            const attendanceCtx = document.getElementById('attendanceChart').getContext('2d');
-            attendanceChart = new Chart(attendanceCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Present', 'Absent', 'Late', 'Excused'],
-                    datasets: [{
-                        data: [85, 8, 4, 3],
-                        backgroundColor: [
-                            '#27ae60',
-                            '#e74c3c',
-                            '#f39c12',
-                            '#3498db'
-                        ],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Attendance Distribution'
-                        },
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }
-            });
-        }
-
-        // Set default dates
-        function setDefaultDates() {
-            const today = new Date();
-            const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
-            
-            document.getElementById('dateFrom').value = lastMonth.toISOString().split('T')[0];
-            document.getElementById('dateTo').value = today.toISOString().split('T')[0];
-        }
-
-        // Report functions
-        function loadReport(category) {
-            // Show loading state
-            showNotification(`Loading ${category} reports...`, 'info');
-            
-            // Simulate API call
-            setTimeout(() => {
-                showNotification(`${category.charAt(0).toUpperCase() + category.slice(1)} reports loaded successfully!`, 'success');
-                
-                // Update UI based on category
-                updateReportView(category);
-            }, 1500);
-        }
-
-        function updateReportView(category) {
-            // Update charts and data based on selected category
-            const categoryData = {
-                academic: {
-                    performance: [78, 82, 85, 87, 89],
-                    attendance: [92, 94, 91, 96, 94],
-                    title: 'Academic Performance Analysis'
-                },
-                attendance: {
-                    performance: [88, 90, 87, 93, 91],
-                    attendance: [94, 92, 96, 94, 95],
-                    title: 'Attendance Analysis'
-                },
-                financial: {
-                    performance: [75, 78, 82, 85, 88],
-                    attendance: [89, 91, 88, 92, 90],
-                    title: 'Financial Performance'
-                }
-            };
-
-            if (categoryData[category]) {
-                const data = categoryData[category];
-                performanceChart.data.datasets[0].data = data.performance;
-                performanceChart.data.datasets[1].data = data.attendance;
-                performanceChart.options.plugins.title.text = data.title;
-                performanceChart.update();
-            }
-        }
-
-        function refreshReports() {
-            showNotification('Refreshing reports data...', 'info');
-            
-            // Simulate refresh
-            setTimeout(() => {
-                loadRecentReports();
-                initializeCharts();
-                showNotification('Reports refreshed successfully!', 'success');
-            }, 2000);
-        }
-
-        function generateReport() {
-            const form = document.getElementById('generateReportForm');
-            const formData = new FormData(form);
-            
-            // Validate form
-            if (!form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
-
-            // Get form values
-            const reportData = {
-                title: document.getElementById('reportTitle').value,
-                type: document.getElementById('reportType').value,
-                dateFrom: document.getElementById('dateFrom').value,
-                dateTo: document.getElementById('dateTo').value,
-                grade: document.getElementById('reportGrade').value,
-                format: document.getElementById('reportFormat').value,
-                includeCharts: document.getElementById('includeCharts').checked,
-                includeStats: document.getElementById('includeStats').checked,
-                includeComparisons: document.getElementById('includeComparisons').checked,
-                includeRecommendations: document.getElementById('includeRecommendations').checked,
-                includeDetails: document.getElementById('includeDetails').checked,
-                includeSummary: document.getElementById('includeSummary').checked,
-                description: document.getElementById('reportDescription').value
-            };
-
-            // Show loading state
-            showNotification('Generating report... This may take a few moments.', 'info');
-            
-            // Close modal
-            const modal = bootstrap.Modal.getInstance(document.getElementById('generateReportModal'));
-            modal.hide();
-
-            // Simulate report generation
-            setTimeout(() => {
-                currentReportData = reportData;
-                showNotification(`Report "${reportData.title}" generated successfully!`, 'success');
-                
-                // Add to recent reports
-                addToRecentReports(reportData);
-                
-                // Auto-download or show based on format
-                if (reportData.format !== 'online') {
-                    downloadGeneratedReport(reportData);
-                } else {
-                    viewGeneratedReport(reportData);
-                }
-            }, 3000);
-        }
-
-        function previewReport() {
-            const reportType = document.getElementById('reportType').value;
-            const reportTitle = document.getElementById('reportTitle').value;
-            
-            if (!reportType || !reportTitle) {
-                showNotification('Please fill in report title and type first.', 'warning');
-                return;
-            }
-
-            showNotification('Generating preview...', 'info');
-            
-            setTimeout(() => {
-                const previewContent = generatePreviewContent(reportType, reportTitle);
-                showReportPreview(previewContent);
-            }, 1500);
-        }
-
-        function generatePreviewContent(type, title) {
-            const previewTemplates = {
-                academic: `
-                    <h4>${title}</h4>
-                    <p><strong>Report Type:</strong> Academic Performance Analysis</p>
-                    <p><strong>Summary:</strong> This report provides comprehensive analysis of student academic performance including grade distributions, subject-wise performance trends, and comparative analysis.</p>
-                    <h6>Key Sections:</h6>
-                    <ul>
-                        <li>Overall Performance Metrics</li>
-                        <li>Grade-wise Analysis</li>
-                        <li>Subject Performance Breakdown</li>
-                        <li>Trend Analysis & Comparisons</li>
-                        <li>Recommendations for Improvement</li>
-                    </ul>
-                `,
-                attendance: `
-                    <h4>${title}</h4>
-                    <p><strong>Report Type:</strong> Attendance Analysis</p>
-                    <p><strong>Summary:</strong> Detailed attendance tracking and analysis including daily, weekly, and monthly attendance patterns with identification of trends and areas of concern.</p>
-                    <h6>Key Sections:</h6>
-                    <ul>
-                        <li>Overall Attendance Statistics</li>
-                        <li>Grade-wise Attendance Patterns</li>
-                        <li>Chronic Absenteeism Analysis</li>
-                        <li>Seasonal Attendance Trends</li>
-                        <li>Intervention Recommendations</li>
-                    </ul>
-                `,
-                financial: `
-                    <h4>${title}</h4>
-                    <p><strong>Report Type:</strong> Financial Analysis</p>
-                    <p><strong>Summary:</strong> Comprehensive financial overview including fee collection status, outstanding payments, revenue analysis, and budget performance.</p>
-                    <h6>Key Sections:</h6>
-                    <ul>
-                        <li>Fee Collection Summary</li>
-                        <li>Outstanding Payments Analysis</li>
-                        <li>Revenue Trends</li>
-                        <li>Budget vs Actual Performance</li>
-                        <li>Financial Health Indicators</li>
-                    </ul>
-                `
-            };
-
-            return previewTemplates[type] || `
-                <h4>${title}</h4>
-                <p><strong>Report Type:</strong> Custom Report</p>
-                <p><strong>Summary:</strong> This custom report will be generated based on your specific requirements and selected parameters.</p>
-            `;
-        }
-
-        function showReportPreview(content) {
-            // Create and show preview modal
-            const previewModal = document.createElement('div');
-            previewModal.className = 'modal fade';
-            previewModal.innerHTML = `
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border-radius: 15px 15px 0 0;">
-                            <h5 class="modal-title">
-                                <i class="fas fa-eye me-2"></i>Report Preview
-                            </h5>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body">
-                            ${content}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" onclick="proceedWithGeneration()">
-                                <i class="fas fa-cog me-1"></i>Generate Full Report
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(previewModal);
-            const modal = new bootstrap.Modal(previewModal);
-            modal.show();
-            
-            // Remove modal from DOM when hidden
-            previewModal.addEventListener('hidden.bs.modal', function() {
-                document.body.removeChild(previewModal);
-            });
-        }
-
-        function proceedWithGeneration() {
-            // Close preview modal
-            const previewModals = document.querySelectorAll('.modal');
-            previewModals.forEach(modal => {
-                const modalInstance = bootstrap.Modal.getInstance(modal);
-                if (modalInstance) modalInstance.hide();
-            });
-            
-            // Proceed with report generation
-            generateReport();
-        }
-
-        function addToRecentReports(reportData) {
-            const tableBody = document.getElementById('recentReportsTable');
-            const newRow = document.createElement('tr');
-            
-            const statusBadge = reportData.format === 'online' ? 
-                '<span class="badge bg-success">Complete</span>' : 
-                '<span class="badge bg-info">Downloaded</span>';
-                
-            const typeBadge = getTypeBadge(reportData.type);
-            
-            newRow.innerHTML = `
-                <td>
-                    <strong>${reportData.title}</strong>
-                    <br><small class="text-muted">${reportData.description || 'Custom generated report'}</small>
-                </td>
-                <td>${typeBadge}</td>
-                <td>System Generated</td>
-                <td>${new Date().toISOString().split('T')[0]}</td>
-                <td>${statusBadge}</td>
-                <td>
-                    <button class="btn btn-sm btn-outline-primary" onclick="viewGeneratedReport(currentReportData)">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-success" onclick="downloadGeneratedReport(currentReportData)">
-                        <i class="fas fa-download"></i>
-                    </button>
-                </td>
-            `;
-            
-            tableBody.insertBefore(newRow, tableBody.firstChild);
-        }
-
-        function getTypeBadge(type) {
-            const badges = {
-                academic: '<span class="badge bg-primary">Academic</span>',
-                attendance: '<span class="badge bg-success">Attendance</span>',
-                financial: '<span class="badge bg-warning">Financial</span>',
-                teacher: '<span class="badge bg-info">Teacher</span>',
-                discipline: '<span class="badge bg-danger">Discipline</span>',
-                enrollment: '<span class="badge" style="background: #9b59b6;">Enrollment</span>',
-                custom: '<span class="badge bg-secondary">Custom</span>'
-            };
-            return badges[type] || badges.custom;
-        }
-
-        function loadRecentReports() {
-            // This would typically load from an API
-            showNotification('Recent reports loaded', 'info');
-        }
-
-        function viewReport(reportId) {
-            showNotification(`Loading report details for ID: ${reportId}`, 'info');
-            
-            setTimeout(() => {
-                const reportContent = generateSampleReportContent(reportId);
-                showReportDetails(reportContent);
-            }, 1000);
-        }
-
-        function generateSampleReportContent(reportId) {
-            const sampleReports = {
-                1: {
-                    title: 'Monthly Academic Performance',
-                    type: 'Academic Performance Analysis',
-                    content: `
-                        <div class="row mb-4">
-                            <div class="col-md-12">
-                                <h4>Executive Summary</h4>
-                                <p>This report analyzes the academic performance of all students across grades 1-6 for the month of May 2025. Overall performance shows a positive trend with an average improvement of 3.2% compared to the previous month.</p>
-                            </div>
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-md-6">
-                                <h5>Key Metrics</h5>
-                                <ul>
-                                    <li><strong>Average GPA:</strong> 3.8/4.0</li>
-                                    <li><strong>Pass Rate:</strong> 94.2%</li>
-                                    <li><strong>Honor Roll Students:</strong> 187</li>
-                                    <li><strong>Students Needing Support:</strong> 23</li>
-                                </ul>
-                            </div>
-                            <div class="col-md-6">
-                                <h5>Grade Distribution</h5>
-                                <div class="progress mb-2">
-                                    <div class="progress-bar bg-success" style="width: 45%">A (45%)</div>
-                                </div>
-                                <div class="progress mb-2">
-                                    <div class="progress-bar bg-info" style="width: 35%">B (35%)</div>
-                                </div>
-                                <div class="progress mb-2">
-                                    <div class="progress-bar bg-warning" style="width: 15%">C (15%)</div>
-                                </div>
-                                <div class="progress mb-2">
-                                    <div class="progress-bar bg-danger" style="width: 5%">D/F (5%)</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h5>Recommendations</h5>
-                                <ol>
-                                    <li>Implement additional support programs for 23 students identified as needing assistance</li>
-                                    <li>Continue current teaching methodologies as they show positive results</li>
-                                    <li>Consider advanced placement opportunities for high-performing students</li>
-                                </ol>
-                            </div>
-                        </div>
-                    `
-                },
-                2: {
-                    title: 'Attendance Summary',
-                    type: 'Attendance Analysis',
-                    content: `
-                        <div class="row mb-4">
-                            <div class="col-md-12">
-                                <h4>Weekly Attendance Analysis</h4>
-                                <p>Comprehensive attendance analysis for the week of May 20-24, 2025, showing overall attendance patterns and identifying areas of concern.</p>
-                            </div>
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-md-4">
-                                <div class="card text-center">
-                                    <div class="card-body">
-                                        <h3 class="text-success">94.2%</h3>
-                                        <p class="mb-0">Overall Attendance</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card text-center">
-                                    <div class="card-body">
-                                        <h3 class="text-warning">72</h3>
-                                        <p class="mb-0">Absent Students</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card text-center">
-                                    <div class="card-body">
-                                        <h3 class="text-info">18</h3>
-                                        <p class="mb-0">Late Arrivals</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h5>Daily Breakdown</h5>
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Day</th>
-                                            <th>Present</th>
-                                            <th>Absent</th>
-                                            <th>Late</th>
-                                            <th>Attendance %</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Monday</td>
-                                            <td>1,175</td>
-                                            <td>72</td>
-                                            <td>8</td>
-                                            <td>94.2%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tuesday</td>
-                                            <td>1,189</td>
-                                            <td>58</td>
-                                            <td>5</td>
-                                            <td>95.4%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Wednesday</td>
-                                            <td>1,195</td>
-                                            <td>52</td>
-                                            <td>3</td>
-                                            <td>95.8%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Thursday</td>
-                                            <td>1,182</td>
-                                            <td>65</td>
-                                            <td>7</td>
-                                            <td>94.8%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Friday</td>
-                                            <td>1,168</td>
-                                            <td>79</td>
-                                            <td>12</td>
-                                            <td>93.7%</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    `
-                }
-            };
-
-            return sampleReports[reportId] || {
-                title: 'Report Details',
-                type: 'General Report',
-                content: '<p>Report details would be displayed here.</p>'
-            };
-        }
-
-        function showReportDetails(reportData) {
-            const modal = document.getElementById('reportDetailsModal');
-            const content = document.getElementById('reportDetailsContent');
-            
-            content.innerHTML = `
-                <div class="mb-3">
-                    <h4>${reportData.title}</h4>
-                    <p class="text-muted">${reportData.type}</p>
-                </div>
-                ${reportData.content}
-            `;
-            
-            const modalInstance = new bootstrap.Modal(modal);
-            modalInstance.show();
-        }
-
-        function downloadReport(reportId) {
-            showNotification(`Downloading report ${reportId}...`, 'info');
-            
-            // Simulate download
-            setTimeout(() => {
-                showNotification('Report downloaded successfully!', 'success');
-            }, 2000);
-        }
-
-        function downloadGeneratedReport(reportData) {
-            if (!reportData) return;
-            
-            showNotification(`Downloading ${reportData.title}...`, 'info');
-            
-            setTimeout(() => {
-                showNotification(`${reportData.title} downloaded successfully!`, 'success');
-            }, 2000);
-        }
-
-       </script>
+</html>

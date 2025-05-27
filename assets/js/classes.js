@@ -5,7 +5,7 @@
                 name: "Advanced Mathematics",
                 subject: "Mathematics",
                 grade: 5,
-                teacher: { name: "Ms. Sarah Johnson", avatar: "https://via.placeholder.com/40" },
+                teacher: { name: "Ms. Sarah Johnson", avatar:'./assets/image/teacher.jpg', },
                 room: "Room 201",
                 capacity: 25,
                 enrolled: 23,
@@ -18,7 +18,7 @@
                 name: "Creative Writing",
                 subject: "English",
                 grade: 4,
-                teacher: { name: "Mr. David Smith", avatar: "https://via.placeholder.com/40" },
+                teacher: { name: "Mr. David Smith", avatar:'./assets/image/teacher.jpg', },
                 room: "Room 102",
                 capacity: 20,
                 enrolled: 18,
@@ -31,7 +31,7 @@
                 name: "Science Experiments",
                 subject: "Science",
                 grade: 6,
-                teacher: { name: "Mrs. Emily Brown", avatar: "https://via.placeholder.com/40" },
+                teacher: { name: "Mrs. Emily Brown", avatar:'./assets/image/teacher.jpg', },
                 room: "Science Lab 1",
                 capacity: 15,
                 enrolled: 15,
@@ -44,7 +44,7 @@
                 name: "World History",
                 subject: "History",
                 grade: 5,
-                teacher: { name: "Mr. Michael Davis", avatar: "https://via.placeholder.com/40" },
+                teacher: { name: "Mr. Michael Davis", avatar:'./assets/image/teacher.jpg', },
                 room: "Room 105",
                 capacity: 30,
                 enrolled: 22,
@@ -57,7 +57,7 @@
                 name: "Art & Craft",
                 subject: "Art",
                 grade: 3,
-                teacher: { name: "Ms. Lisa Wilson", avatar: "https://via.placeholder.com/40" },
+                teacher: { name: "Ms. Lisa Wilson", avatar:'./assets/image/teacher.jpg', },
                 room: "Art Studio",
                 capacity: 18,
                 enrolled: 12,
@@ -70,7 +70,7 @@
                 name: "Physical Education",
                 subject: "PE",
                 grade: 2,
-                teacher: { name: "Coach Thompson", avatar: "https://via.placeholder.com/40" },
+                teacher: { name: "Coach Thompson", avatar:'./assets/image/teacher.jpg', },
                 room: "Gymnasium",
                 capacity: 35,
                 enrolled: 28,
@@ -593,7 +593,7 @@
             return Array.from({length: Math.min(count, 10)}, (_, i) => `
                 <div class="list-group-item d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
-                        <img src="https://via.placeholder.com/30" class="rounded-circle me-2" alt="Student">
+                        <img style="width: 50px; height: auto;" src="./assets/image/std.jpg" class="rounded-circle me-2" alt="Student">
                         <span>${studentNames[i] || `Student ${i + 1}`}</span>
                     </div>
                     <span class="badge bg-success">Active</span>
@@ -622,7 +622,7 @@
                 grade: parseInt(document.getElementById('grade').value),
                 teacher: { 
                     name: document.getElementById('teacher').options[document.getElementById('teacher').selectedIndex].text,
-                    avatar: "https://via.placeholder.com/40"
+                    avatar:'./assets/imateacherstd.jpg',
                 },
                 room: document.getElementById('room').options[document.getElementById('room').selectedIndex].text,
                 capacity: parseInt(document.getElementById('capacity').value),
@@ -1045,7 +1045,7 @@ function deleteClass(classId) {
                     name: "Basic Programming",
                     subject: "Computer Science",
                     grade: 6,
-                    teacher: { name: "Mr. James Wilson", avatar: "https://via.placeholder.com/40" },
+                    teacher: { name: "Mr. James Wilson", avatar:'./assets/image/teacher.jpg', },
                     room: "Computer Lab",
                     capacity: 20,
                     enrolled: 18,
@@ -1058,7 +1058,7 @@ function deleteClass(classId) {
                     name: "Music Fundamentals",
                     subject: "Music",
                     grade: 3,
-                    teacher: { name: "Ms. Maria Garcia", avatar: "https://via.placeholder.com/40" },
+                    teacher: { name: "Ms. Maria Garcia", avatar:'./assets/image/teacher.jpg', },
                     room: "Music Room",
                     capacity: 25,
                     enrolled: 20,
@@ -1071,7 +1071,7 @@ function deleteClass(classId) {
                     name: "Drama Club",
                     subject: "Drama",
                     grade: 4,
-                    teacher: { name: "Mrs. Rachel Adams", avatar: "https://via.placeholder.com/40" },
+                    teacher: { name: "Mrs. Rachel Adams", avatar:'./assets/image/teacher.jpg', },
                     room: "Auditorium",
                     capacity: 30,
                     enrolled: 15,
@@ -1084,7 +1084,7 @@ function deleteClass(classId) {
                     name: "Advanced Science",
                     subject: "Science",
                     grade: 6,
-                    teacher: { name: "Dr. Robert Chen", avatar: "https://via.placeholder.com/40" },
+                    teacher: { name: "Dr. Robert Chen", avatar:'./assets/image/teacher.jpg', },
                     room: "Science Lab 2",
                     capacity: 18,
                     enrolled: 16,
